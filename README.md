@@ -27,7 +27,7 @@ The **AI agent** follows a five-step pipeline to generate a report:
 
 1.  **Input:** The user uploads a lab manual (PDF, DOCX) and provides experimental observations in JSON format through the web interface.
 2.  **RAG Context Retrieval:** The text is extracted from the manual. A LangChain and FAISS vector store is built in memory to find and retrieve the most relevant sections (Aim, Theory, etc.).
-3.  **Code Generation:** A fine-tuned `Phi-3` model (via Hugging Face API) writes Python code for calculations.
+3.  **Code Generation:** A fine-tuned `microsoft/Phi-3-mini` model (via Hugging Face API) writes Python code for calculations.
 4.  **Execution:** The code is executed to get numerical results.
 5.  **Final Report Generation:** The RAG context, user observations, and calculated results are combined into a final prompt and sent to the Llama 3 model via the Groq API, which writes the complete, structured lab report.
 
@@ -39,7 +39,7 @@ The **AI agent** follows a five-step pipeline to generate a report:
 -   **AI Orchestration:** LangChain
 -   **Vector Store:** FAISS
 -   **LLM APIs:**
-    -   Hugging Face Inference API (for the fine-tuned coder model)
+    -   I fine-tuned the `microsoft/Phi-3-mini` model and deployed it on Hugging Face, making it accessible through the Hugging Face Inference API.
     -   Groq API (for the final report writer)
 -   **Core AI Libraries:** PyTorch, Transformers
 
@@ -54,7 +54,7 @@ The **AI agent** follows a five-step pipeline to generate a report:
 ### 2. Installation
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repo-url>
+    git clone https://github.com/Barghav777/AI-Lab-Report-Agent.git
     cd LabReportAgent
     ```
 2.  **Create and activate a virtual environment:**
@@ -101,7 +101,7 @@ The project includes a suite to quantitatively measure the quality of the genera
 2.  **Run the Evaluation Script:**
     Make sure your virtual environment is activated and you are in the project's root directory.
     ```bash
-    python -m evaluation.evaluate
+    python evaluation.py
     ```
 
 3.  **Review the Results:**
