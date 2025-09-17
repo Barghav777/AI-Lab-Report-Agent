@@ -1,5 +1,11 @@
 # 🔬 AI Lab Report Agent
 
+## 👤 Author Information
+- **Name:** D Barghav
+- **University:** IIT, Jammu 
+- **Department:** Mechanical Engineering
+
+
 This project is an **AI agent** built as a web application to automate the creation of scientific lab reports. It takes a lab manual and experimental observations as input and generates a complete, structured report.
 
 ## ✨ Features
