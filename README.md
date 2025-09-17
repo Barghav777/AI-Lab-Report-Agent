@@ -4,6 +4,9 @@
 - **Name:** D Barghav
 - **University:** IIT, Jammu 
 - **Department:** Mechanical Engineering
+- **Email:** 2023UME0253@iitjammu.ac.in
+- **GitHub:** [Barghav777](https://github.com/Barghav777)  
+- **LinkedIn:** [Barghav Dhamodharan](https://www.linkedin.com/in/barghav-dhamodharan-11892a321/)  
 
 
 This project is an **AI agent** built as a web application to automate the creation of scientific lab reports. It takes a lab manual and experimental observations as input and generates a complete, structured report.
