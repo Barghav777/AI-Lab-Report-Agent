@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lab Report Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><span class="emoji">🔬</span> AI Lab Report Generator</h1>
+        </header>
+
+        <main>
+            <form id="upload-form" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label>1. Upload Lab Manual</label>
+                    <div class="file-input-wrapper">
+                        <span>Drag & Drop or Click to Upload</span>
+                        <input type="file" id="manualFile" name="manual_file" accept=".pdf,.docx,.txt" required>
+                        <div id="fileName"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="observations">2. Enter Observations (in JSON format)</label>
+                    <textarea id="observations" name="observations" rows="8" 
+                              placeholder='Example:&#10;{&#10;  "unit_V": "volts",&#10;  "unit_I": "amperes",&#10;  "readings": [&#10;    {"V": 2.0, "I": 0.21},&#10;    {"V": 4.0, "I": 0.40},&#10;    {"V": 6.0, "I": 0.62}&#10;  ]&#10;}' required></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn" class="submit-btn">Generate Report</button>
+            </form>
+
+            <div id="loader" class="loader-container hidden">
+                <div class="loader"></div>
+                <p><strong>Generating your report...</strong><br>This may take a moment. Please wait.</p>
+            </div>
+
+            <div id="reportResult" class="report-container hidden">
+                <div class="report-header">
+                    <h2>Generated Lab Report</h2>
+                    <div class="report-actions">
+                        <button id="copy-btn">Copy Text</button>
+                        <button id="download-btn">Download .txt</button>
+                    </div>
+                </div>
+                <pre id="report-content"></pre>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

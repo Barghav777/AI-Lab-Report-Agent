@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Secret Keys - IMPORTANT
+.env
+
+# Application-generated data and user uploads
+uploads/
+evaluation_results/
+generated_code/
+instance/
+
+# Large model files
+finetuned_model/
+
+# IDE / Editor specific files
+.vscode/
+.idea/
