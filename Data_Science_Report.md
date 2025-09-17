@@ -1,9 +1,4 @@
 # Data Science Report: AI Lab Report Agent
-
----
-
-**Note:** The evaluation scores reported in this document were achieved after various model, prompt, and hyperparameter tuning, specifically using **llama-3.3-70b-versatile** with a temperature setting of **1.0**.
-
 ---
 
 ## 1. Project Objective
@@ -82,7 +77,7 @@ The evaluation uses the **ROUGE score**, a standard metric for summarization and
 
 ### 4.1 Quantitative Analysis
 
-After multiple rounds of prompt engineering and upgrading the report writer model to **Llama3-70b-8192**, the final evaluation scores on the 9-example dataset were:
+**Note:** The evaluation scores reported were achieved after various model, prompt, and hyperparameter tuning. The best results (given below) were achieved by using **llama-3.3-70b-versatile** with a temperature setting of **1.0**
 
 - **Average ROUGE-1 F1-Score**: 0.5438  
 - **Average ROUGE-L F1-Score**: 0.3470  
