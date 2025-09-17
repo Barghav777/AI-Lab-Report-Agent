@@ -117,6 +117,6 @@ Interaction logs can be found at:
 
 ## 6. Screenshots
 
-*(Screenshots not included in this markdown conversion)*
+Can be found in the screenshots directory
 
 ---
