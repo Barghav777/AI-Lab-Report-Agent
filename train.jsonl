@@ -1,0 +1,597 @@
+[
+  {
+    "context": "An experiment to determine the acceleration due to gravity (g) using a simple pendulum. The formula relating the time period (T), length of the pendulum (L), and g is T = 2 * pi * sqrt(L/g). The goal is to calculate the average value of g from multiple trials with varying lengths.",
+    "observations": {
+      "unit_L": "meters",
+      "unit_T": "seconds",
+      "readings": [
+        {"L": 0.50, "T": 1.42},
+        {"L": 0.60, "T": 1.55},
+        {"L": 0.70, "T": 1.68},
+        {"L": 0.80, "T": 1.80}
+      ]
+    },
+    "code": "import math\n\ndef calculate_g(L, T):\n    \"\"\"Calculates acceleration due to gravity (g).\"\"\"\n    return (4 * math.pi**2 * L) / (T**2)\n\n# Observations from the experiment\nobservations = [\n    {'L': 0.50, 'T': 1.42},\n    {'L': 0.60, 'T': 1.55},\n    {'L': 0.70, 'T': 1.68},\n    {'L': 0.80, 'T': 1.80}\n]\n\n# Calculate g for each observation\ng_values = [calculate_g(obs['L'], obs['T']) for obs in observations]\n\n# Calculate the average g\naverage_g = sum(g_values) / len(g_values)\n\nprint(f'Calculated g values: {g_values}')\nprint(f'Average g: {average_g:.2f} m/s^2')"
+  },
+  {
+    "context": "An experiment to verify Ohm's Law and determine the unknown resistance (R) of a given resistor. According to Ohm's Law, Voltage (V) is directly proportional to Current (I), with the constant of proportionality being the resistance (R). The formula is V = IR.",
+    "observations": {
+      "unit_V": "volts",
+      "unit_I": "amperes",
+      "readings": [
+        {"V": 2.0, "I": 0.21},
+        {"V": 4.0, "I": 0.40},
+        {"V": 6.0, "I": 0.59},
+        {"V": 8.0, "I": 0.81}
+      ]
+    },
+    "code": "def calculate_resistance(V, I):\n    \"\"\"Calculates resistance R from Voltage V and Current I.\"\"\"\n    if I == 0:\n        return float('inf') # Avoid division by zero\n    return V / I\n\n# Observations from the experiment\nobservations = [\n    {'V': 2.0, 'I': 0.21},\n    {'V': 4.0, 'I': 0.40},\n    {'V': 6.0, 'I': 0.59},\n    {'V': 8.0, 'I': 0.81}\n]\n\n# Calculate resistance for each reading\nresistance_values = [calculate_resistance(obs['V'], obs['I']) for obs in observations]\n\n# Calculate the average resistance\naverage_resistance = sum(resistance_values) / len(resistance_values)\n\nprint(f'Calculated resistance values: {resistance_values}')\nprint(f'Average Resistance: {average_resistance:.2f} Ohms')"
+  },
+  {
+    "context": "A titration experiment to find the concentration of a hydrochloric acid (HCl) solution. A standard solution of 0.1 M sodium hydroxide (NaOH) is used as the titrant. The volume of the HCl solution taken for each titration is 20.0 mL. The reaction is a one-to-one molar ratio (M_acid * V_acid = M_base * V_base).",
+    "observations": {
+      "M_base": 0.1,
+      "unit_M": "M (mol/L)",
+      "V_acid": 20.0,
+      "unit_V": "mL",
+      "burette_readings_V_base": [15.5, 15.6, 15.4]
+    },
+    "code": "def calculate_acid_molarity(M_base, V_acid, V_base_avg):\n    \"\"\"Calculates the molarity of the acid.\"\"\"\n    return (M_base * V_base_avg) / V_acid\n\n# Known values\nM_base = 0.1 # Molarity of NaOH\nV_acid = 20.0 # Volume of HCl in mL\n\n# Titration readings for the volume of NaOH used\nburette_readings = [15.5, 15.6, 15.4]\n\n# Calculate the average volume of the base used\naverage_V_base = sum(burette_readings) / len(burette_readings)\n\n# Calculate the molarity of the acid\nM_acid = calculate_acid_molarity(M_base, V_acid, average_V_base)\n\nprint(f'Average volume of NaOH used: {average_V_base:.2f} mL')\nprint(f'Molarity of HCl solution: {M_acid:.4f} M')"
+  },
+  {
+    "context": "An experiment to find the density of an irregular solid using the water displacement method. The mass of the solid is measured using a balance. The initial volume of water in a measuring cylinder is recorded. The solid is then submerged in the water, and the final volume is recorded. The difference in volume gives the volume of the solid. Density is mass divided by volume.",
+    "observations": {
+      "mass": 125.5,
+      "unit_mass": "grams",
+      "initial_volume": 50.0,
+      "final_volume": 75.5,
+      "unit_volume": "mL"
+    },
+    "code": "def calculate_density(mass, volume):\n    \"\"\"Calculates density.\"\"\"\n    if volume == 0:\n        return 0\n    return mass / volume\n\n# Observations from the experiment\nmass_solid = 125.5 # in grams\nv_initial = 50.0 # in mL\nv_final = 75.5 # in mL\n\n# Calculate volume of the solid by displacement\nvolume_solid = v_final - v_initial\n\n# Calculate density\ndensity = calculate_density(mass_solid, volume_solid)\n\nprint(f'Mass of solid: {mass_solid} g')\nprint(f'Volume of solid: {volume_solid} mL')\nprint(f'Density of solid: {density:.2f} g/mL')"
+  },
+  {
+    "context": "Experiment to determine the Coriolis component of acceleration. Water flows through two rotating radial tubes. The torque supplied by the motor to rotate the tubes is measured and used to calculate the actual Coriolis acceleration, which is then compared to the theoretical value derived from the water flow rate and rotational speed.",
+    "observations": {
+      "g": 9.81,
+      "swinging_field_arm_length_R": 0.111,
+      "density_of_water_rho": 1000,
+      "length_of_tube_L": 0.261,
+      "internal_diameter_of_tube_d": 0.0068,
+      "readings": [
+        {"N_rpm": 100, "Q_lph": 50, "F_kgf": 0.2},
+        {"N_rpm": 150, "Q_lph": 50, "F_kgf": 0.3},
+        {"N_rpm": 150, "Q_lph": 75, "F_kgf": 0.45}
+      ]
+    },
+    "code": "import math\n\n# Constants\ng = 9.81  # m/s^2\nR = 0.111 # m\nrho = 1000 # kg/m^3\nL = 0.261 # m\nd = 0.0068 # m\na = (math.pi / 4) * d**2 # m^2\n\n# Observation data\nreadings = [\n    {\"N_rpm\": 100, \"Q_lph\": 50, \"F_kgf\": 0.2},\n    {\"N_rpm\": 150, \"Q_lph\": 50, \"F_kgf\": 0.3},\n    {\"N_rpm\": 150, \"Q_lph\": 75, \"F_kgf\": 0.45}\n]\n\nfor i, reading in enumerate(readings):\n    N = reading['N_rpm']\n    Q = reading['Q_lph']\n    F = reading['F_kgf']\n\n    # Calculations\n    T = F * R # Actual Torque in kgf-m\n    \n    # Actual Coriolis Component of Acceleration\n    Acc_act = (T * g) / (rho * a * L**2)\n\n    # Theoretical Coriolis Component of Acceleration\n    omega = (2 * math.pi * N) / 60\n    Q_si = (Q / 2) / (1000 * 3600) # Flow rate in each tube in m^3/s\n    v = Q_si / a\n    Acc_th = 2 * v * omega\n\n    print(f'--- Reading {i+1} ---')\n    print(f'RPM: {N}, Flow (LPH): {Q}, Force (kgf): {F}')\n    print(f'Theoretical Coriolis Acceleration: {Acc_th:.4f} m/s^2')\n    print(f'Actual Coriolis Acceleration: {Acc_act:.4f} m/s^2')\n    print('\\n')"
+  },
+  {
+    "context": "Experiment to study the gyroscopic effect of a rotating disc. An external torque is applied to the spinning disc, causing it to precess. The experiment aims to justify the equation T = I * omega * omega_p by comparing the applied torque with the calculated gyroscopic couple.",
+    "observations": {
+      "g": 9.81,
+      "distance_of_weight_L": 0.20,
+      "radius_of_disc_r": 0.15,
+      "weight_of_disc_W": 5.42,
+      "readings": [
+        {"N_rpm": 1000, "W1_kg": 0.5, "d_theta_deg": 30, "dt_sec": 15.2},
+        {"N_rpm": 1500, "W1_kg": 0.5, "d_theta_deg": 30, "dt_sec": 10.1},
+        {"N_rpm": 1500, "W1_kg": 0.75, "d_theta_deg": 30, "dt_sec": 6.7}
+      ]
+    },
+    "code": "import math\n\n# Constants\ng = 9.81 # m/s^2\nL = 0.20 # m\nr = 0.15 # m\nW = 5.42 # kgf\n\n# Moment of Inertia\nI = (W / g) * (r**2 / 2) # kg-m-s^2\n\n# Observation data\nreadings = [\n    {\"N_rpm\": 1000, \"W1_kg\": 0.5, \"d_theta_deg\": 30, \"dt_sec\": 15.2},\n    {\"N_rpm\": 1500, \"W1_kg\": 0.5, \"d_theta_deg\": 30, \"dt_sec\": 10.1},\n    {\"N_rpm\": 1500, \"W1_kg\": 0.75, \"d_theta_deg\": 30, \"dt_sec\": 6.7}\n]\n\nfor i, reading in enumerate(readings):\n    N = reading['N_rpm']\n    W1 = reading['W1_kg']\n    d_theta = reading['d_theta_deg']\n    dt = reading['dt_sec']\n\n    # Calculations\n    omega = (2 * math.pi * N) / 60 # rad/s (spin velocity)\n    omega_p = (d_theta / dt) * (math.pi / 180) # rad/s (precession velocity)\n\n    T_theoretical = I * omega * omega_p # Theoretical Gyroscopic couple in kg-m\n    T_actual = W1 * L # Actual applied torque in kg-m\n    \n    print(f'--- Reading {i+1} ---')\n    print(f'RPM: {N}, Applied Weight (kg): {W1}')\n    print(f'Theoretical Gyroscopic Couple: {T_theoretical:.4f} kg-m')\n    print(f'Actual Applied Torque: {T_actual:.4f} kg-m')\n    print('\\n')"
+  },
+  {
+    "context": "Experiment to study the behavior of a Hartnell governor. The objective is to determine the characteristics curve of sleeve position against speed and to study the effect of varying initial spring compression. The governor mechanism uses a spring to counteract the centrifugal force of rotating balls.",
+    "observations": {
+      "length_vertical_arm_a": 75,
+      "length_horizontal_arm_b": 130,
+      "initial_radius_R_prime": 186,
+      "weight_of_one_ball_w": 0.74,
+      "weight_of_sleeve_W1": 2.120,
+      "g": 9.81,
+      "initial_sleeve_reading_X_double_prime": 5.0,
+      "added_dead_weight_W2": 1.0,
+      "readings": [
+        {"X_prime_mm": 10, "N_act_rpm": 200},
+        {"X_prime_mm": 15, "N_act_rpm": 225},
+        {"X_prime_mm": 20, "N_act_rpm": 245},
+        {"X_prime_mm": 25, "N_act_rpm": 260}
+      ]
+    },
+    "code": "import math\n\n# Given Data\na = 75.0  # mm\nb = 130.0 # mm\nR_prime = 186.0 # mm\nw = 0.74 # kg\nW1 = 2.120 # kg\ng = 9.81 # m/s^2\n\n# Observations\nX_double_prime = 5.0 # mm\nW2 = 1.0 # kg\nreadings = [\n    {\"X_prime_mm\": 10, \"N_act_rpm\": 200},\n    {\"X_prime_mm\": 15, \"N_act_rpm\": 225},\n    {\"X_prime_mm\": 20, \"N_act_rpm\": 245},\n    {\"X_prime_mm\": 25, \"N_act_rpm\": 260}\n]\n\nprint('--- Hartnell Governor Analysis ---')\nfor i, reading in enumerate(readings):\n    X_prime = reading['X_prime_mm']\n    N_act = reading['N_act_rpm']\n\n    # Calculations\n    X = X_prime - X_double_prime # Sleeve lift\n    R = R_prime + X * (a / b) # Radius of rotation\n    omega = (2 * math.pi * N_act) / 60\n    \n    # Centrifugal Force\n    Fc = (w * omega**2 * (R / 1000)) # in Newtons\n    \n    # Total dead weight on sleeve\n    W_force = (W1 + W2) * g # in Newtons\n\n    # Spring Force\n    Fs = (2 * Fc * (b / a)) - W_force\n\n    print(f'\\nReading {i+1}: N = {N_act} RPM, Sleeve Reading = {X_prime} mm')\n    print(f'Sleeve Lift (X): {X:.2f} mm')\n    print(f'Radius of Rotation (R): {R:.2f} mm')\n    print(f'Centrifugal Force (Fc): {Fc:.2f} N')\n    print(f'Spring Force (Fs): {Fs:.2f} N')"
+  },
+  {
+    "context": "Experiment to balance a system of rotating masses statically and dynamically. Four masses are placed at different locations and angles along a shaft. The goal is to find the magnitude and angular position of a counter-mass in a reference plane to achieve static balance (zero resultant force) and dynamic balance (zero resultant couple).",
+    "observations": {
+        "radius_of_rotation_r_mm": 50,
+        "masses": [
+        {"plane": 1, "m_gm": null, "L_mm": -100, "theta_deg": null},
+        {"plane": 2, "m_gm": 200, "L_mm": 0, "theta_deg": 0},
+        {"plane": 3, "m_gm": 150, "L_mm": 100, "theta_deg": 225},
+        {"plane": 4, "m_gm": 120, "L_mm": 200, "theta_deg": 120}
+        ]
+    },
+    "code": "import math\n\n# Observations\nr = 50.0 # mm\nmasses_data = [\n    {\"plane\": 1, \"m_gm\": 'solve', \"L_mm\": -100, \"theta_deg\": \"solve\"},\n    {\"plane\": 2, \"m_gm\": 200, \"L_mm\": 0, \"theta_deg\": 0},\n    {\"plane\": 3, \"m_gm\": 150, \"L_mm\": 100, \"theta_deg\": 225},\n    {\"plane\": 4, \"m_gm\": 120, \"L_mm\": 200, \"theta_deg\": 120}\n]\n\n# --- Step 1: Dynamic Balance (Couple Polygon) ---\nsum_C_H = 0\nsum_C_V = 0\n\nfor mass in masses_data:\n    if isinstance(mass['m_gm'], (int, float)):\n        m = mass['m_gm']\n        L = mass['L_mm']\n        theta_rad = math.radians(mass['theta_deg'])\n        \n        # Couple C = m * r * L\n        C = m * r * L\n        sum_C_H += C * math.cos(theta_rad)\n        sum_C_V += C * math.sin(theta_rad)\n\n# The balancing couple must be equal and opposite\nbal_C_H = -sum_C_H\nbal_C_V = -sum_C_V\nbal_C = math.sqrt(bal_C_H**2 + bal_C_V**2)\nbal_C_angle_rad = math.atan2(bal_C_V, bal_C_H)\n\n# C1 = m1 * r * L1\nm1 = bal_C / (r * abs(masses_data[0]['L_mm']))\ntheta1_deg = math.degrees(bal_C_angle_rad)\n\n# Update the mass to be solved\nmasses_data[0]['m_gm'] = m1\nmasses_data[0]['theta_deg'] = theta1_deg\n\nprint('--- Dynamic Balance Solution ---')\nprint(f'Required mass in plane 1 (m1): {m1:.2f} gm')\nprint(f'Required angle for m1 (theta1): {theta1_deg:.2f} degrees')\n\n# --- Step 2: Static Balance (Force Polygon) ---\nsum_F_H = 0\nsum_F_V = 0\n\nfor mass in masses_data:\n    m = mass['m_gm']\n    theta_rad = math.radians(mass['theta_deg'])\n    \n    # Force F = m * r\n    F = m * r\n    sum_F_H += F * math.cos(theta_rad)\n    sum_F_V += F * math.sin(theta_rad)\n\n# The balancing force must be equal and opposite\nbal_F_H = -sum_F_H\nbal_F_V = -sum_F_V\nbal_F = math.sqrt(bal_F_H**2 + bal_F_V**2)\nbal_F_angle_rad = math.atan2(bal_F_V, bal_F_H)\n\n# F_bal = m_bal * r\nm_bal = bal_F / r\ntheta_bal_deg = math.degrees(bal_F_angle_rad)\n\nprint('\\n--- Static Balance Solution (for overall system) ---')\nprint('To fully balance the calculated system, a counter mass is needed in the reference plane (Plane 2):')\nprint(f'Required balancing mass m_bal: {m_bal:.2f} gm')\nprint(f'Required angle for m_bal: {theta_bal_deg:.2f} degrees')"
+  },
+  {
+    "context": "Experiment to study the longitudinal vibration of a helical spring. The aim is to determine and compare the theoretical and actual frequency and time period of oscillation for a mass-spring system.",
+    "observations": {
+      "g": 9.81,
+      "weight_of_platform_wp_kg": 0.5,
+      "initial_length_of_spring_Li_m": 0.25,
+      "readings": [
+        {"WA_kg": 1.0, "L_m": 0.35, "n_oscillations": 20, "t_sec": 12.5},
+        {"WA_kg": 1.5, "L_m": 0.40, "n_oscillations": 20, "t_sec": 14.2},
+        {"WA_kg": 2.0, "L_m": 0.45, "n_oscillations": 20, "t_sec": 15.8}
+      ]
+    },
+    "code": "import math\n\n# Given data\ng = 9.81 # m/s^2\nwp_kg = 0.5 # kg\nLi_m = 0.25 # m\n\n# Observations\nreadings = [\n    {\"WA_kg\": 1.0, \"L_m\": 0.35, \"n_oscillations\": 20, \"t_sec\": 12.5},\n    {\"WA_kg\": 1.5, \"L_m\": 0.40, \"n_oscillations\": 20, \"t_sec\": 14.2},\n    {\"WA_kg\": 2.0, \"L_m\": 0.45, \"n_oscillations\": 20, \"t_sec\": 15.8}\n]\n\nfor i, reading in enumerate(readings):\n    W_A = reading['WA_kg']\n    L = reading['L_m']\n    n = reading['n_oscillations']\n    t = reading['t_sec']\n\n    # Calculations\n    W = W_A + wp_kg\n    delta = L - Li_m\n    k = (W * g) / delta # Stiffness in N/m\n    \n    T_theo = 2 * math.pi * math.sqrt(W / k)\n    f_theo = 1 / T_theo\n\n    T_act = t / n\n    f_act = 1 / T_act\n\n    print(f'--- Reading {i+1} ---')\n    print(f'Total Weight: {W:.2f} kg')\n    print(f'Stiffness (k): {k:.2f} N/m')\n    print(f'Theoretical Period (T_theo): {T_theo:.4f} s, Frequency (f_theo): {f_theo:.4f} Hz')\n    print(f'Actual Period (T_act): {T_act:.4f} s, Frequency (f_act): {f_act:.4f} Hz')\n    print('\\n')"
+  },
+  {
+    "context": "Experiment to determine the radius of gyration (k) of a bar using Bi-Filar suspension. The time period of oscillation of the suspended bar is measured to calculate 'k' and compare it with a theoretical value.",
+    "observations": {
+      "g": 9.81,
+      "distance_between_strings_2a_m": 0.4,
+      "length_of_bar_for_k_theo_m": 0.6,
+      "readings": [
+        {"L_m": 0.8, "n_oscillations": 20, "t_sec": 42.8},
+        {"L_m": 1.0, "n_oscillations": 20, "t_sec": 47.8},
+        {"L_m": 1.2, "n_oscillations": 20, "t_sec": 52.4}
+      ]
+    },
+    "code": "import math\n\n# Given Data\ng = 9.81\n_2a = 0.4\na = _2a / 2\nbar_length = 0.6 # For theoretical calculation\n\n# Observations\nreadings = [\n    {\"L_m\": 0.8, \"n_oscillations\": 20, \"t_sec\": 42.8},\n    {\"L_m\": 1.0, \"n_oscillations\": 20, \"t_sec\": 47.8},\n    {\"L_m\": 1.2, \"n_oscillations\": 20, \"t_sec\": 52.4}\n]\n\n# Note: The theoretical formula in the manual appears to be simplified or incorrect.\n# For a uniform bar, k_theo = bar_length / sqrt(12).\n# We will use the formula provided in the manual: k_theo = L / (2*sqrt(3)).\nk_theo_bar = bar_length / math.sqrt(12)\nprint(f'Standard Theoretical Radius of Gyration for the bar: {k_theo_bar:.4f} m\\n')\n\nfor i, reading in enumerate(readings):\n    L = reading['L_m']\n    n = reading['n_oscillations']\n    t = reading['t_sec']\n\n    # Calculations\n    T_act = t / n\n    k_act = (T_act * a / (2 * math.pi)) * math.sqrt(g / L)\n    k_theo_manual = L / (2 * math.sqrt(3)) # As per manual's formula\n    \n    print(f'--- Reading {i+1} (L = {L:.2f} m) ---')\n    print(f'Actual Time Period (T_act): {T_act:.4f} s')\n    print(f'Actual Radius of Gyration (k_act): {k_act:.4f} m')\n    print(f'Theoretical Radius of Gyration (k_theo from manual formula): {k_theo_manual:.4f} m')\n    print('\\n')"
+  },
+  {
+    "context": "Experiment to study the behavior of Porter and Proell governors. This involves determining characteristic curves of sleeve position against speed and radius of rotation against controlling force by varying the central sleeve mass.",
+    "observations": {
+      "type": "Porter",
+      "g": 9.81,
+      "link_length_L_mm": 106,
+      "initial_height_h_prime_mm": 95,
+      "ball_weight_w_kg": 1.54,
+      "pivot_distance_a_mm": 50,
+      "sleeve_weight_W1_kg": 2.120,
+      "arm_weight_W3_kg": 0.177,
+      "added_sleeve_weight_W2_kg": 1.0,
+      "initial_sleeve_reading_X_double_prime_mm": 10,
+      "readings": [
+        {"X_prime_mm": 20, "N_act_rpm": 180},
+        {"X_prime_mm": 30, "N_act_rpm": 200},
+        {"X_prime_mm": 40, "N_act_rpm": 215}
+      ]
+    },
+    "code": "import math\n\n# Given Data (Porter Governor)\ng = 9.81\nL = 106.0\nh_prime = 95.0\nw = 1.54\na = 50.0\nW1 = 2.120\nW3 = 0.177\nW2 = 1.0\nX_double_prime = 10.0\n\n# Observations\nreadings = [\n    {\"X_prime_mm\": 20, \"N_act_rpm\": 180},\n    {\"X_prime_mm\": 30, \"N_act_rpm\": 200},\n    {\"X_prime_mm\": 40, \"N_act_rpm\": 215}\n]\n\nprint('--- Porter Governor Analysis ---')\nfor i, reading in enumerate(readings):\n    X_prime = reading['X_prime_mm']\n    N_act = reading['N_act_rpm']\n    \n    # Calculations\n    X = X_prime - X_double_prime # Manual has X'' - X', but lift should be positive, so using X' - X''\n    omega_act = (2 * math.pi * N_act) / 60\n    h = h_prime - (X / 2)\n    alpha_rad = math.acos(h / L) # in radians\n    H = (a / math.tan(alpha_rad)) + h\n    W = W1 + W2 + W3\n\n    # Theoretical Speed\n    term = ((w + W) / w) * (g * 1000 / H)\n    N_theo = (60 / (2 * math.pi)) * math.sqrt(term)\n    \n    R = a + (L * math.sin(alpha_rad))\n    \n    # Centrifugal Forces\n    F_act_N = w * (R/1000) * omega_act**2\n    F_theo_N = (w*g + W*g) * math.tan(alpha_rad)\n\n    print(f'\\nReading {i+1}: N_act = {N_act} RPM')\n    print(f'Sleeve Lift (X): {X:.2f} mm, Governor Height (H): {H:.2f} mm')\n    print(f'Radius of Rotation (R): {R:.2f} mm')\n    print(f'Theoretical Speed (N_theo): {N_theo:.2f} RPM')\n    print(f'Actual Centrifugal Force: {F_act_N:.2f} N')\n    print(f'Theoretical Centrifugal Force: {F_theo_N:.2f} N')"
+  },
+  {
+    "context": "Experiment to study the pressure profile of lubricating oil in a journal bearing. The objective is to plot the Cartesian pressure curve (Pressure vs. Angle) based on measurements taken at various angular positions around the bearing under a specific load and speed.",
+    "observations": {
+      "total_load_W_kg": 5.0,
+      "speed_N_rpm": 500,
+      "readings": [
+        {"angle_deg": 0, "pressure_kg_cm2": 0.0},
+        {"angle_deg": 30, "pressure_kg_cm2": 0.2},
+        {"angle_deg": 60, "pressure_kg_cm2": 0.8},
+        {"angle_deg": 90, "pressure_kg_cm2": 1.5},
+        {"angle_deg": 120, "pressure_kg_cm2": 2.4},
+        {"angle_deg": 150, "pressure_kg_cm2": 1.2},
+        {"angle_deg": 180, "pressure_kg_cm2": 0.5},
+        {"angle_deg": 210, "pressure_kg_cm2": -0.1},
+        {"angle_deg": 240, "pressure_kg_cm2": -0.3},
+        {"angle_deg": 270, "pressure_kg_cm2": -0.2},
+        {"angle_deg": 300, "pressure_kg_cm2": 0.0},
+        {"angle_deg": 330, "pressure_kg_cm2": 0.0}
+      ]
+    },
+    "code": "import matplotlib.pyplot as plt\nimport math\n\n# Observation Data\nW_kg = 5.0\nN_rpm = 500\nreadings = [\n    {\"angle_deg\": 0, \"pressure_kg_cm2\": 0.0},\n    {\"angle_deg\": 30, \"pressure_kg_cm2\": 0.2},\n    {\"angle_deg\": 60, \"pressure_kg_cm2\": 0.8},\n    {\"angle_deg\": 90, \"pressure_kg_cm2\": 1.5},\n    {\"angle_deg\": 120, \"pressure_kg_cm2\": 2.4},\n    {\"angle_deg\": 150, \"pressure_kg_cm2\": 1.2},\n    {\"angle_deg\": 180, \"pressure_kg_cm2\": 0.5},\n    {\"angle_deg\": 210, \"pressure_kg_cm2\": -0.1},\n    {\"angle_deg\": 240, \"pressure_kg_cm2\": -0.3},\n    {\"angle_deg\": 270, \"pressure_kg_cm2\": -0.2},\n    {\"angle_deg\": 300, \"pressure_kg_cm2\": 0.0},\n    {\"angle_deg\": 330, \"pressure_kg_cm2\": 0.0}\n]\n\n# Extract data for plotting\nangles = [r['angle_deg'] for r in readings]\npressures = [r['pressure_kg_cm2'] for r in readings]\n\n# Plotting the Cartesian pressure curve\nplt.figure(figsize=(10, 6))\nplt.plot(angles, pressures, marker='o', linestyle='-')\nplt.title(f'Journal Bearing Pressure Profile (Load: {W_kg} kg, Speed: {N_rpm} RPM)')\nplt.xlabel('Angle (degrees)')\nplt.ylabel('Pressure (kg/cm^2)')\nplt.grid(True)\nplt.xticks(range(0, 361, 30))\nplt.axhline(0, color='black', linewidth=0.5)\nplt.show()\n\n# Polar plot for better visualization\nfig = plt.figure(figsize=(8, 8))\nax = fig.add_subplot(111, polar=True)\nax.plot([math.radians(a) for a in angles], pressures, marker='o')\nax.set_theta_zero_location('W')\nax.set_theta_direction(-1)\nax.set_title('Polar Pressure Distribution')\nplt.show()"
+  },
+  {
+    "context": "Experiment to study the balancing of reciprocating masses in a four-cylinder inline engine. The primary and secondary unbalanced forces and couples are calculated for a given engine configuration to understand the principles of engine balance.",
+    "observations": {
+      "mass_reciprocating_m_kg": 0.550,
+      "distance_between_cylinders_l_m": 0.057,
+      "crank_radius_r_m": 0.035,
+      "connecting_rod_length_L_m": 0.125,
+      "speed_omega_rad_s": 25.13,
+      "cylinder_config": [
+        {"cylinder": 1, "theta_deg": 0},
+        {"cylinder": 2, "theta_deg": 180},
+        {"cylinder": 3, "theta_deg": 180},
+        {"cylinder": 4, "theta_deg": 0}
+      ]
+    },
+    "code": "import math\n\n# Given Data\nm = 0.550 # kg\nl_dist = 0.057 # m\nr = 0.035 # m\nL = 0.125 # m\nomega = 25.13 # rad/s (approx 240 RPM)\nn = L / r\n\n# Crank angles for a common 4-cylinder engine\nconfig = [\n    {\"cylinder\": 1, \"theta_deg\": 0},\n    {\"cylinder\": 2, \"theta_deg\": 180},\n    {\"cylinder\": 3, \"theta_deg\": 180},\n    {\"cylinder\": 4, \"theta_deg\": 0}\n]\n\n# Reference plane is cylinder 1\n\nsum_primary_force_H = 0\nsum_primary_couple_H = 0\nsum_secondary_force_H = 0\nsum_secondary_couple_H = 0\n\n# Vertical components will be zero since motion is along the x-axis\n\nfor i, cyl in enumerate(config):\n    theta = math.radians(cyl['theta_deg'])\n    dist_from_ref = i * l_dist\n\n    # Primary Forces and Couples\n    F_primary = m * r * omega**2 * math.cos(theta)\n    C_primary = F_primary * dist_from_ref\n    sum_primary_force_H += F_primary\n    sum_primary_couple_H += C_primary\n    \n    # Secondary Forces and Couples\n    F_secondary = (m * r * omega**2 / n) * math.cos(2 * theta)\n    C_secondary = F_secondary * dist_from_ref\n    sum_secondary_force_H += F_secondary\n    sum_secondary_couple_H += C_secondary\n    \nprint(f'--- Unbalanced Forces and Couples for theta=0 ---')\nprint(f'Total Primary Force: {sum_primary_force_H:.2f} N')\nprint(f'Total Primary Couple: {sum_primary_couple_H:.2f} Nm')\nprint(f'Total Secondary Force: {sum_secondary_force_H:.2f} N')\nprint(f'Total Secondary Couple: {sum_secondary_couple_H:.2f} Nm')\n\n# The code calculates the state of unbalance at a given instant (theta=0 for cylinder 1).\n# For complete balance, these sums must be zero throughout the rotation."
+  },
+  {
+    "context": "Potentiometric titration of a strong acid (0.01N HCl) versus a strong base (0.1 N NaOH) using a pH meter. The objective is to determine the equivalence point of the titration by observing the sharp change in pH.",
+    "observations": {
+      "acid_normality_N": 0.01,
+      "base_normality_N": 0.1,
+      "acid_volume_mL": 25.0,
+      "titration_data": [
+        {"vol_NaOH_mL": 0.0, "pH": 2.00},
+        {"vol_NaOH_mL": 0.5, "pH": 2.15},
+        {"vol_NaOH_mL": 1.0, "pH": 2.37},
+        {"vol_NaOH_mL": 1.5, "pH": 2.69},
+        {"vol_NaOH_mL": 2.0, "pH": 3.25},
+        {"vol_NaOH_mL": 2.2, "pH": 3.85},
+        {"vol_NaOH_mL": 2.4, "pH": 7.00},
+        {"vol_NaOH_mL": 2.6, "pH": 10.15},
+        {"vol_NaOH_mL": 2.8, "pH": 10.75},
+        {"vol_NaOH_mL": 3.0, "pH": 11.09},
+        {"vol_NaOH_mL": 4.0, "pH": 11.58},
+        {"vol_NaOH_mL": 5.0, "pH": 11.80}
+      ]
+    },
+    "code": "import matplotlib.pyplot as plt\nimport numpy as np\n\n# Observation Data\ntitration_data = [\n    {\"vol_NaOH_mL\": 0.0, \"pH\": 2.00},\n    {\"vol_NaOH_mL\": 0.5, \"pH\": 2.15},\n    {\"vol_NaOH_mL\": 1.0, \"pH\": 2.37},\n    {\"vol_NaOH_mL\": 1.5, \"pH\": 2.69},\n    {\"vol_NaOH_mL\": 2.0, \"pH\": 3.25},\n    {\"vol_NaOH_mL\": 2.2, \"pH\": 3.85},\n    {\"vol_NaOH_mL\": 2.4, \"pH\": 7.00},\n    {\"vol_NaOH_mL\": 2.6, \"pH\": 10.15},\n    {\"vol_NaOH_mL\": 2.8, \"pH\": 10.75},\n    {\"vol_NaOH_mL\": 3.0, \"pH\": 11.09},\n    {\"vol_NaOH_mL\": 4.0, \"pH\": 11.58},\n    {\"vol_NaOH_mL\": 5.0, \"pH\": 11.80}\n]\n\n# Extract data for plotting\nvolumes = np.array([d['vol_NaOH_mL'] for d in titration_data])\npH_values = np.array([d['pH'] for d in titration_data])\n\n# Calculate first derivative (dpH/dV)\ndpH = np.diff(pH_values)\ndV = np.diff(volumes)\ndpdV = dpH / dV\nvol_midpoints = volumes[:-1] + dV/2\n\n# Find the equivalence point (max of first derivative)\nequivalence_volume_index = np.argmax(dpdV)\nequivalence_volume = vol_midpoints[equivalence_volume_index]\n\nprint(f'The equivalence point is at approximately {equivalence_volume:.2f} mL of NaOH.')\n\n# Plotting the titration curve\nplt.figure(figsize=(12, 6))\n\nplt.subplot(1, 2, 1)\nplt.plot(volumes, pH_values, marker='o', linestyle='-')\nplt.title('Potentiometric Titration Curve')\nplt.xlabel('Volume of NaOH added (mL)')\nplt.ylabel('pH')\nplt.grid(True)\nplt.axvline(x=equivalence_volume, color='r', linestyle='--', label=f'Equivalence Point = {equivalence_volume:.2f} mL')\nplt.legend()\n\n# Plotting the first derivative curve\nplt.subplot(1, 2, 2)\nplt.plot(vol_midpoints, dpdV, marker='o', color='g')\nplt.title('First Derivative Plot')\nplt.xlabel('Volume of NaOH added (mL)')\nplt.ylabel('dpH / dV')\nplt.grid(True)\nplt.axvline(x=equivalence_volume, color='r', linestyle='--')\n\nplt.tight_layout()\nplt.show()"
+  },
+  {
+    "context": "Determination of the dissociation constant (Ka) of a weak acid (acetic acid) by conductometry. The conductance of acetic acid solutions at various concentrations is measured to calculate the molar conductance, degree of dissociation, and subsequently, Ka.",
+    "observations": {
+      "cell_constant_cm_inv": 1.05,
+      "molar_conductance_at_infinite_dilution_Lambda0_S_cm2_mol_inv": 390.8,
+      "readings": [
+        {"concentration_M": 0.10, "conductance_S": 0.00052},
+        {"concentration_M": 0.05, "conductance_S": 0.00037},
+        {"concentration_M": 0.025, "conductance_S": 0.00026},
+        {"concentration_M": 0.0125, "conductance_S": 0.00019}
+      ]
+    },
+    "code": "import math\n\n# Given Data\ncell_constant = 1.05 # cm^-1\nLambda0 = 390.8 # S cm^2 mol^-1 for acetic acid\n\n# Observations\nreadings = [\n    {\"concentration_M\": 0.10, \"conductance_S\": 0.00052},\n    {\"concentration_M\": 0.05, \"conductance_S\": 0.00037},\n    {\"concentration_M\": 0.025, \"conductance_S\": 0.00026},\n    {\"concentration_M\": 0.0125, \"conductance_S\": 0.00019}\n]\n\nKa_values = []\n\nprint('--- Conductometric Analysis of Acetic Acid ---')\nfor i, reading in enumerate(readings):\n    C = reading['concentration_M']\n    G = reading['conductance_S']\n    \n    # (a) Calculate specific conductance (kappa)\n    kappa = cell_constant * G # S cm^-1\n    \n    # (b) Calculate molar conductance (Lambda)\n    Lambda = 1000 * kappa / C # S cm^2 mol^-1\n    \n    # (c) Calculate degree of dissociation (alpha)\n    alpha = Lambda / Lambda0\n    \n    # (d) Calculate dissociation constant (Ka)\n    Ka = (C * alpha**2) / (1 - alpha)\n    Ka_values.append(Ka)\n    \n    print(f'\\nReading {i+1}: Concentration = {C} M')\n    print(f'Specific Conductance (k): {kappa:.6f} S cm^-1')\n    print(f'Molar Conductance (Lambda): {Lambda:.2f} S cm^2 mol^-1')\n    print(f'Degree of Dissociation (alpha): {alpha:.4f}')\n    print(f'Dissociation Constant (Ka): {Ka:.2e}')\n\naverage_Ka = sum(Ka_values) / len(Ka_values)\nprint(f'\\nAverage Ka value: {average_Ka:.2e}')"
+  },
+  {
+    "context": "Study of the chemical kinetics of the acid-catalyzed hydrolysis of ethyl acetate. This pseudo-first-order reaction is monitored by titrating the acetic acid produced over time with a standard NaOH solution to determine the rate constant (k).",
+    "observations": {
+      "titration_data": [
+        {"time_min": 0, "vol_NaOH_mL": 24.3},
+        {"time_min": 10, "vol_NaOH_mL": 25.8},
+        {"time_min": 20, "vol_NaOH_mL": 27.2},
+        {"time_min": 30, "vol_NaOH_mL": 28.5},
+        {"time_min": 40, "vol_NaOH_mL": 29.7},
+        {"time_min": null, "vol_NaOH_mL": 48.1}
+      ]
+    },
+    "code": "import math\n\n# Observation Data\ntitration_data = [\n    {\"time_min\": 0, \"vol_NaOH_mL\": 24.3},\n    {\"time_min\": 10, \"vol_NaOH_mL\": 25.8},\n    {\"time_min\": 20, \"vol_NaOH_mL\": 27.2},\n    {\"time_min\": 30, \"vol_NaOH_mL\": 28.5},\n    {\"time_min\": 40, \"vol_NaOH_mL\": 29.7},\n    {\"time_min\": \"infinity\", \"vol_NaOH_mL\": 48.1}\n]\n\nV0 = titration_data[0]['vol_NaOH_mL']\nV_inf = titration_data[-1]['vol_NaOH_mL']\n\nk_values = []\n\nprint('--- Kinetics of Ethyl Acetate Hydrolysis ---')\nfor data_point in titration_data[1:-1]:\n    t = data_point['time_min']\n    Vt = data_point['vol_NaOH_mL']\n    \n    # The term (a-x) is proportional to (V_inf - Vt)\n    # The term (a) is proportional to (V_inf - V0)\n    if (V_inf - Vt) <= 0:\n        continue\n\n    k = (2.303 / t) * math.log10((V_inf - V0) / (V_inf - Vt))\n    k_values.append(k)\n    \n    print(f'At time t = {t} min, Rate Constant k = {k:.4f} min^-1')\n\nif k_values:\n    average_k = sum(k_values) / len(k_values)\n    print(f'\\nAverage Rate Constant: {average_k:.4f} min^-1')"
+  },
+  {
+    "context": "Preparation of Benzimidazole through a condensation reaction of o-phenylenediamine and formic acid. This is a synthesis experiment where the yield of the product is the primary quantitative measure.",
+    "observations": {
+      "mass_o_phenylenediamine_g": 2.36,
+      "MW_o_phenylenediamine_g_mol": 108.14,
+      "MW_benzimidazole_g_mol": 118.14,
+      "actual_yield_crude_g": 2.15
+    },
+    "code": "# Given Data\nmass_reactant = 2.36 # g\nMW_reactant = 108.14 # g/mol\nMW_product = 118.14 # g/mol\nactual_yield = 2.15 # g\n\n# --- Calculation --- \n\n# Moles of reactant (o-phenylenediamine)\nmoles_reactant = mass_reactant / MW_reactant\n\n# Theoretical yield assumes 1:1 molar ratio\ntheoretical_yield_moles = moles_reactant\ntheoretical_yield_grams = theoretical_yield_moles * MW_product\n\n# Percentage Yield\npercentage_yield = (actual_yield / theoretical_yield_grams) * 100\n\nprint('--- Benzimidazole Synthesis ---')\nprint(f'Theoretical Yield: {theoretical_yield_grams:.2f} g')\nprint(f'Actual Yield: {actual_yield:.2f} g')\nprint(f'Percentage Yield: {percentage_yield:.2f} %')"
+  },
+  {
+    "context": "Synthesis of the coordination complex Hexamminenickel(II) chloride, [Ni(NH3)6]Cl2, and subsequent estimation of the nickel content via complexometric titration with EDTA.",
+    "observations": {
+      "synthesis": {
+        "mass_NiCl2_6H2O_g": 6.0,
+        "MW_NiCl2_6H2O_g_mol": 237.69,
+        "MW_product_g_mol": 231.79,
+        "actual_yield_g": 4.85
+      },
+      "titration": {
+        "mass_complex_for_stock_g": 0.60,
+        "stock_solution_volume_mL": 50.0,
+        "aliquot_volume_mL": 10.0,
+        "molarity_EDTA_M": 0.05,
+        "volume_EDTA_used_mL": 21.1,
+        "MW_Ni_g_mol": 58.69
+      }
+    },
+    "code": "# --- Part 1: Synthesis Yield Calculation ---\nmass_reactant = 6.0\nMW_reactant = 237.69\nMW_product = 231.79\nactual_yield = 4.85\n\nmoles_reactant = mass_reactant / MW_reactant\ntheoretical_yield = moles_reactant * MW_product\nsynthesis_yield_percent = (actual_yield / theoretical_yield) * 100\n\nprint('--- [Ni(NH3)6]Cl2 Synthesis ---')\nprint(f'Theoretical Yield: {theoretical_yield:.2f} g')\nprint(f'Percentage Yield: {synthesis_yield_percent:.2f} %\\n')\n\n# --- Part 2: Nickel Estimation by Titration ---\nmass_complex = 0.60\nstock_vol = 50.0\naliquot_vol = 10.0\nEDTA_M = 0.05\nEDTA_vol = 21.1\nMW_Ni = 58.69\n\n# Moles of EDTA used in titration\nmoles_EDTA = (EDTA_M * EDTA_vol) / 1000\n\n# Moles of Ni in the aliquot (1:1 reaction)\nmoles_Ni_aliquot = moles_EDTA\n\n# Total moles of Ni in the stock solution\nmoles_Ni_total = moles_Ni_aliquot * (stock_vol / aliquot_vol)\n\n# Mass of Ni in the original sample\nmass_Ni_experimental = moles_Ni_total * MW_Ni\n\n# Experimental percentage of Ni in the complex\npercent_Ni_experimental = (mass_Ni_experimental / mass_complex) * 100\n\n# Theoretical percentage of Ni in the complex\npercent_Ni_theoretical = (MW_Ni / MW_product) * 100\n\nprint('--- Nickel Estimation ---')\nprint(f'Experimental Percentage of Nickel: {percent_Ni_experimental:.2f} %')\nprint(f'Theoretical Percentage of Nickel: {percent_Ni_theoretical:.2f} %')"
+  },
+  {
+    "context": "Synthesis of Nylon-6,10 via interfacial polymerization of hexamethylene diamine and sebacoyl chloride. This experiment focuses on the qualitative creation of the polymer strand.",
+    "observations": {
+      "reactant_1": "1g Hexamethylene diamine in 25ml water",
+      "reactant_2": "1g Sebacoyl chloride in 25ml hexane",
+      "yield_nylon_g": 1.25
+    },
+    "code": "# In interfacial polymerization, calculating an exact theoretical yield is complex\n# as the reaction is limited by reactant diffusion to the interface.\n# The code will simply report the observed yield.\n\nactual_yield = 1.25 # g\n\nprint('--- Nylon-6,10 Synthesis ---')\nprint(f'A single, continuous strand of Nylon-6,10 was synthesized.')\nprint(f'Weight of dried nylon obtained: {actual_yield} g')"
+  },
+  {
+    "context": "Separation of amino acids by Thin Layer Chromatography (TLC). The experiment involves spotting known amino acids and an unknown mixture on a TLC plate, developing the chromatogram, and calculating the Retention Factor (Rf) for each spot.",
+    "observations": {
+      "distance_solvent_front_cm": 8.5,
+      "spots": [
+        {"name": "Alanine", "distance_cm": 3.4},
+        {"name": "Leucine", "distance_cm": 6.1},
+        {"name": "Lysine", "distance_cm": 1.5},
+        {"name": "Valine", "distance_cm": 5.2},
+        {"name": "Unknown Spot 1", "distance_cm": 3.4},
+        {"name": "Unknown Spot 2", "distance_cm": 5.2}
+      ]
+    },
+    "code": "solvent_front_dist = 8.5 # cm\nspots_data = [\n    {\"name\": \"Alanine\", \"distance_cm\": 3.4},\n    {\"name\": \"Leucine\", \"distance_cm\": 6.1},\n    {\"name\": \"Lysine\", \"distance_cm\": 1.5},\n    {\"name\": \"Valine\", \"distance_cm\": 5.2},\n    {\"name\": \"Unknown Spot 1\", \"distance_cm\": 3.4},\n    {\"name\": \"Unknown Spot 2\", \"distance_cm\": 5.2}\n]\n\nknown_spots = {spot['name']: spot for spot in spots_data if 'Unknown' not in spot['name']}\nunknown_spots = [spot for spot in spots_data if 'Unknown' in spot['name']]\n\nprint('--- TLC of Amino Acids ---')\nfor spot in spots_data:\n    name = spot['name']\n    dist = spot['distance_cm']\n    rf_value = dist / solvent_front_dist\n    print(f'Rf value for {name}: {rf_value:.2f}')\n\nprint('\\n--- Identifying Unknowns ---')\nfor unk in unknown_spots:\n    unk_rf = unk['distance_cm'] / solvent_front_dist\n    match_found = False\n    for known_name, known_spot in known_spots.items():\n        known_rf = known_spot['distance_cm'] / solvent_front_dist\n        if abs(unk_rf - known_rf) < 0.05: # Check for a close match\n            print(f'{unk[\"name\"]} (Rf={unk_rf:.2f}) matches with {known_name} (Rf={known_rf:.2f})')\n            match_found = True\n    if not match_found:\n        print(f'{unk[\"name\"]} (Rf={unk_rf:.2f}) does not match any known spots.')"
+  },
+  {
+    "context": "Determination of the total hardness of a water sample by complexometric titration with a standardized EDTA solution using Eriochrome Black T (EBT) as an indicator. Hardness is expressed in ppm of CaCO3.",
+    "observations": {
+      "standardization": {
+        "molarity_ZnSO4_M": 0.01,
+        "volume_ZnSO4_mL": 25.0,
+        "volume_EDTA_used_mL": 24.5
+      },
+      "hardness_titration": {
+        "volume_hard_water_mL": 50.0,
+        "volume_EDTA_used_mL": 15.2
+      },
+      "MW_CaCO3_g_mol": 100.09
+    },
+    "code": "# --- Part 1: Standardization of EDTA ---\n# Using M1V1 = M2V2 for standardization\nM_ZnSO4 = 0.01\nV_ZnSO4 = 25.0\nV_EDTA_std = 24.5\n\nM_EDTA = (M_ZnSO4 * V_ZnSO4) / V_EDTA_std\nprint('--- Water Hardness Determination ---')\nprint(f'Standardized Molarity of EDTA: {M_EDTA:.4f} M\\n')\n\n# --- Part 2: Hardness Calculation ---\nV_water = 50.0\nV_EDTA_hardness = 15.2\nMW_CaCO3 = 100.09\n\n# Moles of EDTA used for hardness titration\nmoles_EDTA = (M_EDTA * V_EDTA_hardness) / 1000\n\n# Total moles of Ca2+ and Mg2+ is equal to moles of EDTA\nmoles_hardness_ions = moles_EDTA\n\n# Mass of CaCO3 equivalent to these moles\nmass_CaCO3_eq = moles_hardness_ions * MW_CaCO3 # in grams\n\n# Convert mass to mg\nmass_CaCO3_eq_mg = mass_CaCO3_eq * 1000\n\n# Convert water volume to L\nV_water_L = V_water / 1000\n\n# Hardness in ppm (mg/L)\nhardness_ppm = mass_CaCO3_eq_mg / V_water_L\n\nprint(f'--- Hardness Calculation ---')\nprint(f'Total Hardness of Water: {hardness_ppm:.2f} ppm (as CaCO3)')"
+  },
+  {
+    "context": "Quantitative estimation of glycine in a given solution using Sørensen's formol titration. The method involves neutralizing the solution, reacting the amino group with formaldehyde, and then titrating the now-exposed carboxylic acid group with standardized NaOH.",
+    "observations": {
+      "standardization": {
+        "normality_oxalic_acid_N": 0.1,
+        "volume_oxalic_acid_mL": 10.0,
+        "volume_NaOH_used_mL": 9.8
+      },
+      "glycine_titration": {
+        "volume_glycine_solution_mL": 10.0,
+        "volume_NaOH_used_after_formalin_mL": 12.1
+      },
+      "EW_glycine_g_eq": 75.07
+    },
+    "code": "# --- Part 1: Standardization of NaOH ---\n# Using N1V1 = N2V2 for standardization\nN_oxalic = 0.1\nV_oxalic = 10.0\nV_NaOH_std = 9.8\n\nN_NaOH = (N_oxalic * V_oxalic) / V_NaOH_std\nprint('--- Glycine Estimation by Formol Titration ---')\nprint(f'Standardized Normality of NaOH: {N_NaOH:.4f} N\\n')\n\n# --- Part 2: Glycine Calculation ---\nV_glycine = 10.0\nV_NaOH_glycine = 12.1\nEW_glycine = 75.07\n\n# Using N_glycine * V_glycine = N_NaOH * V_NaOH_glycine\nN_glycine = (N_NaOH * V_NaOH_glycine) / V_glycine\n\n# Amount in g/L = Normality * Equivalent Weight\namount_glycine_g_L = N_glycine * EW_glycine\n\nprint('--- Glycine Calculation ---')\nprint(f'Normality of Glycine Solution: {N_glycine:.4f} N')\nprint(f'Amount of Glycine: {amount_glycine_g_L:.2f} g/L')"
+  },
+  {
+    "context": "Estimation of the concentration of a glucose solution using Fehling's test. The reducing sugar (glucose) is titrated against a standard Fehling's solution, and the concentration is determined based on the volume of glucose solution required for the complete reduction of Cu2+ ions.",
+    "observations": {
+      "fehling_factor_g_mL": 0.0051,
+      "volume_fehling_solution_mL": 10.0,
+      "volume_glucose_solution_used_mL": 11.5
+    },
+    "code": "# Given Data\nfehling_factor = 0.0051 # g of glucose equivalent to 1 mL of Fehling's solution\nvol_fehling = 10.0 # mL\nvol_glucose = 11.5 # mL\n\n# --- Calculation ---\n\n# Total mass of glucose required to reduce the Fehling's solution\ntotal_glucose_mass_g = vol_fehling * fehling_factor\n\n# This mass was present in the volume of glucose solution used\n# Concentration (g/mL) = mass / volume\nconcentration_g_per_mL = total_glucose_mass_g / vol_glucose\n\n# Concentration in g/L\nconcentration_g_per_L = concentration_g_per_mL * 1000\n\nprint('--- Glucose Estimation using Fehling\\'s Solution ---')\nprint(f'{vol_glucose} mL of the glucose solution contains {total_glucose_mass_g:.4f} g of glucose.')\nprint(f'Concentration of the unknown glucose solution: {concentration_g_per_L:.2f} g/L')"
+  },
+  {
+    "context": "Fundamentals of Temperature Measurement: Testing electronic and contact thermometers by measuring their accuracy and response time at the freezing (0 C) and boiling (100 C) points of water.",
+    "observations": {
+      "set_point_ice_C": 0,
+      "set_point_boiling_C": 100,
+      "ice_water_readings": [
+        {"sensor": "Pt100", "measured_C": 0.2, "response_time_s": 15, "resistance_ohm": 100.8},
+        {"sensor": "NTC", "measured_C": -0.1, "response_time_s": 12, "resistance_ohm": 2650},
+        {"sensor": "Thermocouple K", "measured_C": 0.5, "response_time_s": 8, "voltage_uV": 20},
+        {"sensor": "Gas Pressure", "measured_C": 0.0, "response_time_s": 35},
+        {"sensor": "Bimetallic", "measured_C": 0.5, "response_time_s": 45},
+        {"sensor": "Liquid", "measured_C": 0.1, "response_time_s": 60}
+      ],
+      "boiling_water_readings": [
+        {"sensor": "Pt100", "measured_C": 99.8, "response_time_s": 15, "resistance_ohm": 138.4},
+        {"sensor": "NTC", "measured_C": 100.2, "response_time_s": 12, "resistance_ohm": 84.1},
+        {"sensor": "Thermocouple K", "measured_C": 99.5, "response_time_s": 8, "voltage_uV": 4075},
+        {"sensor": "Gas Pressure", "measured_C": 100.0, "response_time_s": 35},
+        {"sensor": "Bimetallic", "measured_C": 99.0, "response_time_s": 45},
+        {"sensor": "Liquid", "measured_C": 99.9, "response_time_s": 60}
+      ]
+    },
+    "code": "def calculate_error(measured, set_point):\n    return measured - set_point\n\n# Observations\nice_data = [\n    {\"sensor\": \"Pt100\", \"measured_C\": 0.2},\n    {\"sensor\": \"NTC\", \"measured_C\": -0.1},\n    {\"sensor\": \"Thermocouple K\", \"measured_C\": 0.5},\n    {\"sensor\": \"Gas Pressure\", \"measured_C\": 0.0},\n    {\"sensor\": \"Bimetallic\", \"measured_C\": 0.5},\n    {\"sensor\": \"Liquid\", \"measured_C\": 0.1}\n]\nboiling_data = [\n    {\"sensor\": \"Pt100\", \"measured_C\": 99.8},\n    {\"sensor\": \"NTC\", \"measured_C\": 100.2},\n    {\"sensor\": \"Thermocouple K\", \"measured_C\": 99.5},\n    {\"sensor\": \"Gas Pressure\", \"measured_C\": 100.0},\n    {\"sensor\": \"Bimetallic\", \"measured_C\": 99.0},\n    {\"sensor\": \"Liquid\", \"measured_C\": 99.9}\n]\n\nprint('--- Temperature Sensor Test at 0 C ---')\nfor item in ice_data:\n    error = calculate_error(item['measured_C'], 0)\n    print(f\"Sensor: {item['sensor']}, Measured: {item['measured_C']} C, Error: {error:.2f} C\")\n\nprint('\\n--- Temperature Sensor Test at 100 C ---')\nfor item in boiling_data:\n    error = calculate_error(item['measured_C'], 100)\n    print(f\"Sensor: {item['sensor']}, Measured: {item['measured_C']} C, Error: {error:.2f} C\")"
+  },
+  {
+    "context": "To determine the thermal conductivity (k) of a brass specimen using Fourier's law of heat conduction for one-dimensional, steady flow.",
+    "observations": {
+      "specimen_diameter_m": 0.025,
+      "distances_from_T1_m": {"T1":0.0, "T2":0.015, "T3":0.030, "T6":0.075, "T7":0.090, "T8":0.105},
+      "intermediate_section_length_m": 0.030,
+      "readings": [
+        {"V": 117, "I": 0.128, "T1": 48.8, "T2": 44.7, "T3": 40.5, "T6": 29.4, "T7": 25.0, "T8": 22.1},
+        {"V": 164, "I": 0.183, "T1": 77.8, "T2": 70.1, "T3": 62.3, "T6": 40.2, "T7": 32.4, "T8": 26.5}
+      ]
+    },
+    "code": "import math\n\n# Given Data\ndiameter = 0.025 # m\nArea = (math.pi / 4) * diameter**2\ndx_hot = 0.030 # m (T1 to T3)\ndx_cold = 0.030 # m (T6 to T8)\n\n# Observations\nreadings = [\n    {\"V\": 117, \"I\": 0.128, \"T1\": 48.8, \"T3\": 40.5, \"T6\": 29.4, \"T8\": 22.1},\n    {\"V\": 164, \"I\": 0.183, \"T1\": 77.8, \"T3\": 62.3, \"T6\": 40.2, \"T8\": 26.5}\n]\n\nprint('--- Thermal Conductivity (k) Calculation ---')\nfor i, reading in enumerate(readings):\n    V = reading['V']\n    I = reading['I']\n    \n    # Heat transfer rate\n    Q = V * I\n    \n    # Temperature differences\n    dT_hot = reading['T1'] - reading['T3']\n    dT_cold = reading['T6'] - reading['T8']\n    \n    # Thermal conductivity for heated and cooled sections\n    k_hot = (Q * dx_hot) / (Area * dT_hot)\n    k_cold = (Q * dx_cold) / (Area * dT_cold)\n    \n    print(f'\\nReading {i+1}: Q = {Q:.2f} W')\n    print(f'k (heated section): {k_hot:.2f} W/mK')\n    print(f'k (cooled section): {k_cold:.2f} W/mK')"
+  },
+  {
+    "context": "To obtain the relationship between Nusselt number (Nu) and Rayleigh number (Ra) for free convection from a heated vertical flat plate under constant heat flux conditions.",
+    "observations": {
+      "plate_height_H_m": 0.1,
+      "plate_width_m": 0.1,
+      "emissivity_epsilon": 0.40,
+      "stefan_boltzmann_sigma": 5.67e-8,
+      "air_properties": {"k_W_mK": 0.026, "nu_m2_s": 1.6e-5, "alpha_m2_s": 2.25e-5, "beta_K_inv": 0.0033},
+      "readings": [
+        {"heater_power_W": 2, "T_air_C": 25.0, "T_plate_avg_C": 45.0},
+        {"heater_power_W": 4, "T_air_C": 25.0, "T_plate_avg_C": 60.0},
+        {"heater_power_W": 6, "T_air_C": 25.0, "T_plate_avg_C": 72.0},
+        {"heater_power_W": 8, "T_air_C": 25.0, "T_plate_avg_C": 83.0}
+      ]
+    },
+    "code": "# Constants and Properties\nH = 0.1\nArea = H * 0.1 * 2 # Both sides\nepsilon = 0.40\nsigma = 5.67e-8\nk_air = 0.026\nnu_air = 1.6e-5\nalpha_air = 2.25e-5\nbeta_air = 0.0033\ng = 9.81\n\n# Observations\nreadings = [\n    {\"heater_power_W\": 2, \"T_air_C\": 25.0, \"T_plate_avg_C\": 45.0},\n    {\"heater_power_W\": 4, \"T_air_C\": 25.0, \"T_plate_avg_C\": 60.0},\n    {\"heater_power_W\": 6, \"T_air_C\": 25.0, \"T_plate_avg_C\": 72.0},\n    {\"heater_power_W\": 8, \"T_air_C\": 25.0, \"T_plate_avg_C\": 83.0}\n]\n\nprint('--- Free Convection Analysis ---')\nfor i, reading in enumerate(readings):\n    Q_total = reading['heater_power_W']\n    T_air_K = reading['T_air_C'] + 273.15\n    T_plate_K = reading['T_plate_avg_C'] + 273.15\n\n    q_total_flux = Q_total / Area\n    q_rad_flux = sigma * epsilon * (T_plate_K**4 - T_air_K**4)\n    q_conv_flux = q_total_flux - q_rad_flux\n\n    h = q_conv_flux / (T_plate_K - T_air_K)\n    Nu_exp = (h * H) / k_air\n\n    Ra_q = (g * beta_air * q_conv_flux * H**4) / (nu_air * alpha_air * k_air)\n\n    print(f'\\nReading {i+1}: Power = {Q_total} W')\n    print(f'Heat Flux (convective): {q_conv_flux:.2f} W/m^2')\n    print(f'Heat Transfer Coeff (h): {h:.2f} W/m^2K')\n    print(f'Rayleigh Number (Ra_q): {Ra_q:.2e}')\n    print(f'Nusselt Number (Nu_exp): {Nu_exp:.2f}')"
+  },
+  {
+    "context": "To experimentally validate the Stefan-Boltzmann law (I is proportional to T^4) and the inverse square law of distance (I is proportional to L^-2) for thermal radiation.",
+    "observations": {
+      "stefan_boltzmann_test": {
+        "distance_L_mm": 150,
+        "readings": [
+          {"temp_K": 480, "intensity_W_m2": 5.5},
+          {"temp_K": 550, "intensity_W_m2": 9.0},
+          {"temp_K": 600, "intensity_W_m2": 14.0},
+          {"temp_K": 680, "intensity_W_m2": 22.0},
+          {"temp_K": 730, "intensity_W_m2": 31.0},
+          {"temp_K": 790, "intensity_W_m2": 42.0}
+        ]
+      },
+      "inverse_square_test": {
+        "heater_power_percent": 75,
+        "readings": [
+          {"distance_mm": 110, "intensity_W_m2": 41.0},
+          {"distance_mm": 120, "intensity_W_m2": 35.0},
+          {"distance_mm": 130, "intensity_W_m2": 29.0},
+          {"distance_mm": 140, "intensity_W_m2": 25.0},
+          {"distance_mm": 150, "intensity_W_m2": 22.0},
+          {"distance_mm": 170, "intensity_W_m2": 16.0}
+        ]
+      }
+    },
+    "code": "import numpy as np\nfrom scipy.stats import linregress\n\n# Data for Stefan-Boltzmann Law Test\ntemps_K = np.array([d['temp_K'] for d in [{\"temp_K\": 480, \"intensity_W_m2\": 5.5}, {\"temp_K\": 550, \"intensity_W_m2\": 9.0}, {\"temp_K\": 600, \"intensity_W_m2\": 14.0}, {\"temp_K\": 680, \"intensity_W_m2\": 22.0}, {\"temp_K\": 730, \"intensity_W_m2\": 31.0}, {\"temp_K\": 790, \"intensity_W_m2\": 42.0}])\nintensities_S_B = np.array([d['intensity_W_m2'] for d in [{\"temp_K\": 480, \"intensity_W_m2\": 5.5}, {\"temp_K\": 550, \"intensity_W_m2\": 9.0}, {\"temp_K\": 600, \"intensity_W_m2\": 14.0}, {\"temp_K\": 680, \"intensity_W_m2\": 22.0}, {\"temp_K\": 730, \"intensity_W_m2\": 31.0}, {\"temp_K\": 790, \"intensity_W_m2\": 42.0}]])\n\n# Data for Inverse Square Law Test\ndistances_mm = np.array([d['distance_mm'] for d in [{\"distance_mm\": 110, \"intensity_W_m2\": 41.0}, {\"distance_mm\": 120, \"intensity_W_m2\": 35.0}, {\"distance_mm\": 130, \"intensity_W_m2\": 29.0}, {\"distance_mm\": 140, \"intensity_W_m2\": 25.0}, {\"distance_mm\": 150, \"intensity_W_m2\": 22.0}, {\"distance_mm\": 170, \"intensity_W_m2\": 16.0}]])\nintensities_I_S = np.array([d['intensity_W_m2'] for d in [{\"distance_mm\": 110, \"intensity_W_m2\": 41.0}, {\"distance_mm\": 120, \"intensity_W_m2\": 35.0}, {\"distance_mm\": 130, \"intensity_W_m2\": 29.0}, {\"distance_mm\": 140, \"intensity_W_m2\": 25.0}, {\"distance_mm\": 150, \"intensity_W_m2\": 22.0}, {\"distance_mm\": 170, \"intensity_W_m2\": 16.0}]])\n\n# Analysis using log-log linear regression\nlog_T = np.log(temps_K)\nlog_I_SB = np.log(intensities_S_B)\nslope_sb, _, _, _, _ = linregress(log_T, log_I_SB)\n\nlog_L = np.log(distances_mm)\nlog_I_IS = np.log(intensities_I_S)\nslope_is, _, _, _, _ = linregress(log_L, log_I_IS)\n\nprint('--- Radiation Law Validation ---')\nprint(f'Stefan-Boltzmann Law (I ~ T^n): Experimental exponent n = {slope_sb:.2f} (Theoretical = 4.0)')\nprint(f'Inverse Square Law (I ~ L^m): Experimental exponent m = {slope_is:.2f} (Theoretical = -2.0')"
+  },
+  {
+    "context": "To test the efficiency and effectiveness of a plate heat exchanger in parallel-flow and counter-flow configurations by calculating LMTD, overall heat transfer coefficient, and efficiencies.",
+    "observations": {
+      "total_area_A_m2": 0.04,
+      "water_cp_J_kgK": 4180,
+      "water_density_kg_m3": 1000,
+      "parallel_flow_readings": [
+        {"m_hot_gs": 50, "m_cold_gs": 8, "T1_C": 59.5, "T2_C": 52.1, "T3_C": 25.0, "T4_C": 38.2},
+        {"m_hot_gs": 50, "m_cold_gs": 16, "T1_C": 59.8, "T2_C": 48.5, "T3_C": 25.0, "T4_C": 36.1}
+      ],
+      "counter_flow_readings": [
+        {"m_hot_gs": 50, "m_cold_gs": 8, "T1_C": 59.6, "T2_C": 49.9, "T3_C": 25.0, "T4_C": 40.8},
+        {"m_hot_gs": 50, "m_cold_gs": 16, "T1_C": 59.9, "T2_C": 45.3, "T3_C": 25.0, "T4_C": 38.5}
+      ]
+    },
+    "code": "import math\n\ndef calculate_hex_performance(data, flow_type):\n    # Constants\n    A = 0.04\n    cp = 4180\n\n    print(f'\\n--- {flow_type.upper()} FLOW ANALYSIS ---')\n    for i, r in enumerate(data):\n        m_hot = r['m_hot_gs'] / 1000\n        m_cold = r['m_cold_gs'] / 1000\n        T1, T2, T3, T4 = r['T1_C'], r['T2_C'], r['T3_C'], r['T4_C']\n\n        Q_hot = m_hot * cp * (T1 - T2)\n        Q_cold = m_cold * cp * (T4 - T3)\n        Q_avg = (Q_hot + Q_cold) / 2\n\n        if flow_type == 'parallel':\n            dT_in = T1 - T3\n            dT_out = T2 - T4\n        else: # counter\n            dT_in = T1 - T4\n            dT_out = T2 - T3\n\n        if dT_in <= 0 or dT_out <= 0 or dT_in == dT_out:\n            lmtd = (dT_in + dT_out) / 2 # Arithmetic mean if log mean fails\n        else:\n            lmtd = (dT_in - dT_out) / math.log(dT_in / dT_out)\n\n        U = Q_avg / (A * lmtd) if A * lmtd != 0 else 0\n        eta_hot = (T1 - T2) / (T1 - T3) * 100\n        eta_cold = (T4 - T3) / (T1 - T3) * 100\n\n        print(f'Reading {i+1}: Q_avg = {Q_avg:.2f} W, LMTD = {lmtd:.2f} C, U = {U:.2f} W/m^2K')\n        print(f'Efficiencies -> Hot: {eta_hot:.1f}%, Cold: {eta_cold:.1f}%')\n\n# Run calculations\nparallel_data = [{'m_hot_gs': 50, 'm_cold_gs': 8, 'T1_C': 59.5, 'T2_C': 52.1, 'T3_C': 25.0, 'T4_C': 38.2}, {'m_hot_gs': 50, 'm_cold_gs': 16, 'T1_C': 59.8, 'T2_C': 48.5, 'T3_C': 25.0, 'T4_C': 36.1}]\ncounter_data = [{'m_hot_gs': 50, 'm_cold_gs': 8, 'T1_C': 59.6, 'T2_C': 49.9, 'T3_C': 25.0, 'T4_C': 40.8}, {'m_hot_gs': 50, 'm_cold_gs': 16, 'T1_C': 59.9, 'T2_C': 45.3, 'T3_C': 25.0, 'T4_C': 38.5}]\ncalculate_hex_performance(parallel_data, 'parallel')\ncalculate_hex_performance(counter_data, 'counter')"
+  },
+  {
+    "context": "To understand the nucleate boiling regime by measuring heat flux and wire temperature to determine the heat transfer coefficient.",
+    "observations": {
+      "wire_diameter_dw_m": 0.00075,
+      "wire_length_lw_m": 0.05,
+      "readings": [
+        {"V": 0.20, "A": 40.5},
+        {"V": 0.30, "A": 65.2},
+        {"V": 0.40, "A": 88.1},
+        {"V": 0.50, "A": 110.3},
+        {"V": 0.60, "A": 130.1}
+      ]
+    },
+    "code": "import math\n\n# Wire Properties\ndw = 0.00075\nlw = 0.05\nAw = (math.pi / 4) * dw**2\nAe = math.pi * dw * lw\nT_sat_C = 100.0\n\n# Observations\nreadings = [\n    {\"V\": 0.20, \"A\": 40.5},\n    {\"V\": 0.30, \"A\": 65.2},\n    {\"V\": 0.40, \"A\": 88.1},\n    {\"V\": 0.50, \"A\": 110.3},\n    {\"V\": 0.60, \"A\": 130.1}\n]\n\nprint('--- Nucleate Boiling Analysis ---')\nfor i, r in enumerate(readings):\n    V, I = r['V'], r['A']\n    \n    Power = V * I\n    Resistance = V / I if I != 0 else 0\n    q_flux = Power / Ae\n    \n    # Wire Temperature from empirical formula in manual\n    # Tw_C = ((Resistance * 1000) + 3.42907) / 0.02525 - 273.15 - 100 # Original formula seems to be for K\n    # Correcting the formula for Celsius output\n    Tw_C = ((Resistance * 1000) + 3.42907) / 0.02525 - 373.15\n\n    Superheat = Tw_C - T_sat_C\n    h = q_flux / Superheat if Superheat > 0 else 0\n    \n    print(f'\\nReading {i+1}: Power = {Power:.2f} W')\n    print(f'Heat Flux: {q_flux:.2e} W/m^2')\n    print(f'Wire Temp: {Tw_C:.2f} C')\n    print(f'Superheat: {Superheat:.2f} C')\n    print(f'Heat Transfer Coeff (h): {h:.2e} W/m^2K')"
+  },
+  {
+    "context": "To obtain the relationship between Nusselt number (Nu) and Reynolds number (Re) for forced convection over a vertical hot flat plate under constant heat flux condition.",
+    "observations": {
+      "plate_height_H_m": 0.1,
+      "plate_width_m": 0.1,
+      "emissivity_epsilon": 0.40,
+      "stefan_boltzmann_sigma": 5.67e-8,
+      "air_properties": {"k_W_mK": 0.026, "nu_m2_s": 1.6e-5},
+      "heater_power_W": 8.0,
+      "readings": [
+        {"fan_percent": 30, "wind_speed_m_s": 1.5, "T_air_C": 26.0, "T_plate_avg_C": 45.0},
+        {"fan_percent": 40, "wind_speed_m_s": 2.2, "T_air_C": 26.0, "T_plate_avg_C": 41.0},
+        {"fan_percent": 50, "wind_speed_m_s": 3.0, "T_air_C": 26.0, "T_plate_avg_C": 38.0},
+        {"fan_percent": 60, "wind_speed_m_s": 3.8, "T_air_C": 26.0, "T_plate_avg_C": 36.0}
+      ]
+    },
+    "code": "# Constants and Properties\nH = 0.1\nArea = H * 0.1 * 2 # Both sides\nepsilon = 0.40\nsigma = 5.67e-8\nk_air = 0.026\nnu_air = 1.6e-5\nQ_total = 8.0\n\n# Observations\nreadings = [\n    {\"wind_speed_m_s\": 1.5, \"T_air_C\": 26.0, \"T_plate_avg_C\": 45.0},\n    {\"wind_speed_m_s\": 2.2, \"T_air_C\": 26.0, \"T_plate_avg_C\": 41.0},\n    {\"wind_speed_m_s\": 3.0, \"T_air_C\": 26.0, \"T_plate_avg_C\": 38.0},\n    {\"wind_speed_m_s\": 3.8, \"T_air_C\": 26.0, \"T_plate_avg_C\": 36.0}\n]\n\nprint('--- Forced Convection Analysis ---')\nfor i, reading in enumerate(readings):\n    U_inf = reading['wind_speed_m_s']\n    T_air_K = reading['T_air_C'] + 273.15\n    T_plate_K = reading['T_plate_avg_C'] + 273.15\n\n    q_total_flux = Q_total / Area\n    q_rad_flux = sigma * epsilon * (T_plate_K**4 - T_air_K**4)\n    q_conv_flux = q_total_flux - q_rad_flux\n\n    h = q_conv_flux / (T_plate_K - T_air_K)\n    Re = (U_inf * H) / nu_air\n    Nu = (h * H) / k_air\n\n    print(f'\\nReading {i+1}: Wind Speed = {U_inf} m/s')\n    print(f'Heat Transfer Coeff (h): {h:.2f} W/m^2K')\n    print(f'Reynolds Number (Re): {Re:.2e}')\n    print(f'Nusselt Number (Nu): {Nu:.2f}')"
+  },
+  {
+    "context": "To analyze a two-stage compression refrigeration system and study the effect of intercooling and sub-cooling on the system's Coefficient of Performance (COP).",
+    "observations": {
+      "without_subcooling_intercooling": {
+        "P_LP_W": 210, "P_HP_W": 250,
+        "h1": 405, "h2": 435, "h3": 440, "h4": 475, "h5": 260, "h6": 260, "h7": 260, "h8": 405
+      },
+      "with_subcooling_intercooling": {
+        "P_LP_W": 200, "P_HP_W": 230,
+        "h1": 405, "h2": 430, "h3": 415, "h4": 445, "h5": 260, "h6": 240, "h7": 240, "h8": 405
+      }
+    },
+    "code": "def calculate_cop(data):\n    # Enthalpy values in kJ/kg\n    h1, h2, h3, h4, h5, h6, h7, h8 = data['h1'], data['h2'], data['h3'], data['h4'], data['h5'], data['h6'], data['h7'], data['h8']\n    \n    # Assuming total mass flow rate is 1 for relative comparison\n    # In reality, mass flow rate would be needed for absolute Q_ref\n    # Q_ref is proportional to (h1 - h8) or (h1 - h7) depending on subcooling\n    # Refrigeration effect: h_evap_in - h_evap_out\n    q_ref = h1 - h7 \n    \n    # Compressor work\n    # The manual doesn't specify mass flow splits for intercooling, so we use given power.\n    power_total_W = data['P_LP_W'] + data['P_HP_W']\n    \n    # COP is dimensionless, but units must be consistent. Here we compare relative COP.\n    # For a real calculation, we'd need mass flow rate: COP = (m_dot * q_ref) / power_total_W\n    # Since m_dot is unknown, we calculate a relative performance index (proportional to COP)\n    performance_index = q_ref / power_total_W\n    return performance_index\n\n# Data (enthalpy values would be derived from T & P readings using refrigerant tables)\ndata_without = {\"P_LP_W\": 210, \"P_HP_W\": 250, \"h1\": 405, \"h2\": 435, \"h3\": 440, \"h4\": 475, \"h5\": 260, \"h6\": 260, \"h7\": 260, \"h8\": 405}\ndata_with = {\"P_LP_W\": 200, \"P_HP_W\": 230, \"h1\": 405, \"h2\": 430, \"h3\": 415, \"h4\": 445, \"h5\": 260, \"h6\": 240, \"h7\": 240, \"h8\": 405}\n\nperf_idx_without = calculate_cop(data_without)\nperf_idx_with = calculate_cop(data_with)\n\nprint('--- Refrigeration System Analysis ---')\nprint(f'Performance Index without sub/inter-cooling: {perf_idx_without:.4f}')\nprint(f'Performance Index with sub/inter-cooling: {perf_idx_with:.4f}')\nprint(f'Improvement with sub/inter-cooling: {((perf_idx_with/perf_idx_without - 1) * 100):.2f}%')"
+  },
+  {
+    "context": "To study the performance characteristics of a Francis turbine by determining its shaft power, hydraulic power, and efficiency at different operating points.",
+    "observations": {
+      "pulley_diameter_D_m": 0.05,
+      "water_density_rho_kg_m3": 1000,
+      "gravity_g_m_s2": 9.81,
+      "readings": [
+        {"time_for_10L_s": 8.0, "speed_rpm": 1500, "F1_N": 3.0, "F2_N": 1.0, "pressure_bar": 0.8},
+        {"time_for_10L_s": 8.2, "speed_rpm": 1200, "F1_N": 3.5, "F2_N": 1.0, "pressure_bar": 0.8},
+        {"time_for_10L_s": 8.5, "speed_rpm": 900, "F1_N": 4.0, "F2_N": 1.0, "pressure_bar": 0.8}
+      ]
+    },
+    "code": "import math\n\n# Constants\nD = 0.05 # m\nrho = 1000\ng = 9.81\n\n# Observations\nreadings = [\n    {\"time_for_10L_s\": 8.0, \"speed_rpm\": 1500, \"F1_N\": 3.0, \"F2_N\": 1.0, \"pressure_bar\": 0.8},\n    {\"time_for_10L_s\": 8.2, \"speed_rpm\": 1200, \"F1_N\": 3.5, \"F2_N\": 1.0, \"pressure_bar\": 0.8},\n    {\"time_for_10L_s\": 8.5, \"speed_rpm\": 900, \"F1_N\": 4.0, \"F2_N\": 1.0, \"pressure_bar\": 0.8}\n]\n\nprint('--- Francis Turbine Performance ---')\nfor i, r in enumerate(readings):\n    t = r['time_for_10L_s']\n    n = r['speed_rpm']\n    F = r['F1_N'] - r['F2_N']\n    p_bar = r['pressure_bar']\n\n    # Calculations\n    Q_m3_s = (10 / 1000) / t\n    Torque = F * (D / 2)\n    Shaft_Power = Torque * (2 * math.pi * n) / 60\n    \n    # Head H = p / (rho*g)\n    Head = (p_bar * 1e5) / (rho * g)\n    Hydraulic_Power = Q_m3_s * Head * rho * g\n    \n    Efficiency = (Shaft_Power / Hydraulic_Power) * 100 if Hydraulic_Power > 0 else 0\n    \n    print(f'\\nReading {i+1}: Speed = {n} RPM')\n    print(f'Flow Rate: {Q_m3_s * 1000:.2f} L/s')\n    print(f'Shaft Power: {Shaft_Power:.2f} W')\n    print(f'Hydraulic Power: {Hydraulic_Power:.2f} W')\n    print(f'Efficiency: {Efficiency:.2f} %')"
+  },
+  {
+    "context": "To study the performance characteristics of a Pelton turbine by calculating its torque, shaft power, hydraulic power, and efficiency at various speeds and loads.",
+    "observations": {
+      "pulley_diameter_D_m": 0.05,
+      "water_density_rho_kg_m3": 1000,
+      "gravity_g_m_s2": 9.81,
+      "readings": [
+        {"time_for_10L_s": 12.0, "speed_rpm": 1200, "F1_N": 2.5, "F2_N": 0.5, "pressure_bar": 1.2},
+        {"time_for_10L_s": 12.2, "speed_rpm": 1000, "F1_N": 3.0, "F2_N": 0.5, "pressure_bar": 1.2},
+        {"time_for_10L_s": 12.5, "speed_rpm": 800, "F1_N": 3.5, "F2_N": 0.5, "pressure_bar": 1.2}
+      ]
+    },
+    "code": "import math\n\n# Constants\nD = 0.05 # m\nrho = 1000\ng = 9.81\n\n# Observations\nreadings = [\n    {\"time_for_10L_s\": 12.0, \"speed_rpm\": 1200, \"F1_N\": 2.5, \"F2_N\": 0.5, \"pressure_bar\": 1.2},\n    {\"time_for_10L_s\": 12.2, \"speed_rpm\": 1000, \"F1_N\": 3.0, \"F2_N\": 0.5, \"pressure_bar\": 1.2},\n    {\"time_for_10L_s\": 12.5, \"speed_rpm\": 800, \"F1_N\": 3.5, \"F2_N\": 0.5, \"pressure_bar\": 1.2}\n]\n\nprint('--- Pelton Turbine Performance ---')\nfor i, r in enumerate(readings):\n    t = r['time_for_10L_s']\n    n = r['speed_rpm']\n    F = r['F1_N'] - r['F2_N']\n    p_bar = r['pressure_bar']\n\n    # Calculations\n    Q_m3_s = (10 / 1000) / t\n    Torque = F * (D / 2)\n    Shaft_Power = Torque * (2 * math.pi * n) / 60\n    \n    # Head H = p / (rho*g)\n    Head = (p_bar * 1e5) / (rho * g)\n    Hydraulic_Power = Q_m3_s * Head * rho * g\n    \n    Efficiency = (Shaft_Power / Hydraulic_Power) * 100 if Hydraulic_Power > 0 else 0\n    \n    print(f'\\nReading {i+1}: Speed = {n} RPM')\n    print(f'Flow Rate: {Q_m3_s * 1000:.2f} L/s')\n    print(f'Shaft Power: {Shaft_Power:.2f} W')\n    print(f'Hydraulic Power: {Hydraulic_Power:.2f} W')\n    print(f'Efficiency: {Efficiency:.2f} %')"
+  },
+  {
+    "context": "Experiment to perform and analyze various operations on a CNC turning machine, including step turning, taper turning, and facing. The objective is to calculate cutting parameters and verify the dimensional accuracy of the machined part.",
+    "observations": {
+      "initial_workpiece_diameter_mm": 22,
+      "spindle_speed_rpm": 800,
+      "feed_rate_mm_rev": 0.2,
+      "drawing_dimensions": {
+        "step1_diameter_mm": 20,
+        "step1_length_mm": 30,
+        "taper_end_diameter_mm": 15,
+        "taper_length_mm": 20
+      },
+      "measured_dimensions": {
+        "step1_diameter_mm": 20.05,
+        "step1_length_mm": 30.1,
+        "taper_end_diameter_mm": 15.08,
+        "taper_length_mm": 20.05
+      }
+    },
+    "code": "import math\n\ndef calculate_cutting_speed(diameter_mm, speed_rpm):\n    return (math.pi * diameter_mm * speed_rpm) / 1000\n\ndef calculate_error(actual, nominal):\n    return ((actual - nominal) / nominal) * 100\n\n# Observations\nD_initial = 22 # mm\nN = 800 # rpm\ndrawing_dims = {\"step1_diameter_mm\": 20, \"step1_length_mm\": 30}\nmeasured_dims = {\"step1_diameter_mm\": 20.05, \"step1_length_mm\": 30.1}\n\n# Calculations\ncutting_speed_m_min = calculate_cutting_speed(D_initial, N)\n\nprint(f'--- CNC Turning Analysis ---')\nprint(f'Cutting Speed: {cutting_speed_m_min:.2f} m/min')\n\nprint('\\n--- Dimensional Error Analysis ---')\nfor dim, nominal_val in drawing_dims.items():\n    actual_val = measured_dims[dim]\n    error = calculate_error(actual_val, nominal_val)\n    print(f'{dim}: Nominal={nominal_val} mm, Actual={actual_val} mm, Error={error:.2f}%')"
+  },
+  {
+    "context": "Experiment to cut a spur gear on a horizontal milling machine. The process involves calculating gear blank parameters, setting up the indexing head, and machining the gear teeth.",
+    "observations": {
+      "module_m": 3,
+      "number_of_teeth_Z": 23,
+      "measured_tooth_depth_mm": 6.70,
+      "measured_tooth_thickness_mm": 4.65
+    },
+    "code": "import math\n\n# Given Parameters\nm = 3\nZ = 23\nmeasured_depth = 6.70\nmeasured_thickness = 4.65\n\n# --- Theoretical Calculations ---\n# a) Gear Blank Determination\nblank_diameter = m * (Z + 2)\ntooth_depth_theoretical = 2.25 * m\ncircular_pitch = math.pi * m\ntooth_thickness_theoretical = circular_pitch / 2\n\n# b) Indexing\nindexing_ratio = 40 / Z\nfull_turns = int(indexing_ratio)\nholes_to_move = (indexing_ratio - full_turns) * Z\n\n# c) Error Calculation\ndepth_error = ((measured_depth - tooth_depth_theoretical) / tooth_depth_theoretical) * 100\nthickness_error = ((measured_thickness - tooth_thickness_theoretical) / tooth_thickness_theoretical) * 100\n\nprint('--- Gear Cutting Calculations ---')\nprint(f'Gear Blank Diameter: {blank_diameter:.2f} mm')\nprint(f'Theoretical Tooth Depth: {tooth_depth_theoretical:.2f} mm')\nprint(f'Theoretical Tooth Thickness: {tooth_thickness_theoretical:.2f} mm')\nprint(f'Indexing: {full_turns} full turn(s) and {int(round(holes_to_move))} holes in a {Z}-hole circle.')\n\nprint('\\n--- Measurement Variation ---')\nprint(f'Tooth Depth Variation: {depth_error:.2f}%')\nprint(f'Tooth Thickness Variation: {thickness_error:.2f}%')"
+  },
+  {
+    "context": "Experiment to analyze the effects of cutting parameters on a Wire Electrical Discharge Machining (EDM) process. This involves measuring surface roughness, overcut, and spark gap for different peak currents.",
+    "observations": {
+      "programmed_length_mm": 10.0,
+      "wire_diameter_mm": 0.25,
+      "sample1": {
+        "peak_current_A": 40,
+        "final_cut_length_mm": 10.35,
+        "cutting_time_min": 5.2,
+        "surface_roughness_Ra_um": 1.8
+      },
+      "sample2": {
+        "peak_current_A": 80,
+        "final_cut_length_mm": 10.45,
+        "cutting_time_min": 3.8,
+        "surface_roughness_Ra_um": 2.5
+      }
+    },
+    "code": "def analyze_wire_edm(sample_data):\n    wire_diameter = 0.25 # mm\n    programmed_length = 10.0 # mm\n\n    kerf_width = sample_data['final_cut_length_mm']\n    overcut = (kerf_width - wire_diameter) / 2 # one side\n    spark_gap = overcut # Spark gap is equivalent to one-sided overcut\n    cutting_speed = programmed_length / sample_data['cutting_time_min']\n\n    return {\n        'overcut_mm': overcut,\n        'spark_gap_mm': spark_gap,\n        'cutting_speed_mm_min': cutting_speed,\n        'Ra_um': sample_data['surface_roughness_Ra_um']\n    }\n\n# Data\nsample1_data = {\"peak_current_A\": 40, \"final_cut_length_mm\": 10.35, \"cutting_time_min\": 5.2, \"surface_roughness_Ra_um\": 1.8}\nsample2_data = {\"peak_current_A\": 80, \"final_cut_length_mm\": 10.45, \"cutting_time_min\": 3.8, \"surface_roughness_Ra_um\": 2.5}\n\n# Analysis\nresults1 = analyze_wire_edm(sample1_data)\nresults2 = analyze_wire_edm(sample2_data)\n\nprint('--- Wire EDM Analysis ---')\nprint(f'Sample 1 (IP={sample1_data[\"peak_current_A\"]}A): Overcut={results1[\"overcut_mm\"]:.3f}mm, Speed={results1[\"cutting_speed_mm_min\"]:.2f}mm/min, Ra={results1[\"Ra_um\"]:.2f}um')\nprint(f'Sample 2 (IP={sample2_data[\"peak_current_A\"]}A): Overcut={results2[\"overcut_mm\"]:.3f}mm, Speed={results2[\"cutting_speed_mm_min\"]:.2f}mm/min, Ra={results2[\"Ra_um\"]:.2f}um')"
+  },
+  {
+    "context": "To measure and analyze the cutting forces (cutting force Fc and thrust force Ft) in an orthogonal turning operation at different feed rates and spindle speeds using a Kistler dynamometer.",
+    "observations": {
+        "workpiece_diameter_mm": 20,
+        "depth_of_cut_mm": 1.0,
+        "effect_of_feed": {
+            "spindle_speed_rpm": 500,
+            "readings": [
+                {"feed_mm_rev": 0.1, "force_Fc_N": 350, "force_Ft_N": 180},
+                {"feed_mm_rev": 0.2, "force_Fc_N": 580, "force_Ft_N": 290}
+            ]
+        },
+        "effect_of_speed": {
+            "feed_mm_rev": 0.15,
+            "readings": [
+                {"spindle_speed_rpm": 400, "force_Fc_N": 450, "force_Ft_N": 220},
+                {"spindle_speed_rpm": 600, "force_Fc_N": 420, "force_Ft_N": 205}
+            ]
+        }
+    },
+    "code": "import math\n\nD = 20 # mm\n\n# --- Effect of Feed Rate ---\nfeed_data = {\"spindle_speed_rpm\": 500, \"readings\": [{\"feed_mm_rev\": 0.1, \"force_Fc_N\": 350, \"force_Ft_N\": 180}, {\"feed_mm_rev\": 0.2, \"force_Fc_N\": 580, \"force_Ft_N\": 290}]}\nN_feed_test = feed_data['spindle_speed_rpm']\nVc_feed_test = (math.pi * D * N_feed_test) / 1000\n\nprint(f'--- Cutting Force Analysis (Effect of Feed Rate at {Vc_feed_test:.2f} m/min) ---')\nfor r in feed_data['readings']:\n    feed = r['feed_mm_rev']\n    Fc = r['force_Fc_N']\n    Ft = r['force_Ft_N']\n    print(f'Feed: {feed} mm/rev -> Fc = {Fc} N, Ft = {Ft} N')\n\n# --- Effect of Cutting Speed ---\nspeed_data = {\"feed_mm_rev\": 0.15, \"readings\": [{\"spindle_speed_rpm\": 400, \"force_Fc_N\": 450, \"force_Ft_N\": 220}, {\"spindle_speed_rpm\": 600, \"force_Fc_N\": 420, \"force_Ft_N\": 205}]}\nfeed_speed_test = speed_data['feed_mm_rev']\n\nprint(f'\\n--- Cutting Force Analysis (Effect of Cutting Speed at {feed_speed_test} mm/rev feed) ---')\nfor r in speed_data['readings']:\n    N = r['spindle_speed_rpm']\n    Vc = (math.pi * D * N) / 1000\n    Fc = r['force_Fc_N']\n    Ft = r['force_Ft_N']\n    print(f'Speed: {Vc:.2f} m/min -> Fc = {Fc} N, Ft = {Ft} N')"
+  }
+]

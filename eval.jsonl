@@ -1,0 +1,86 @@
+[
+{
+    "context": "To study the working principle of CO2 laser cutting, analyze the effect of laser power on the cut, and calculate the energy density for a given cutting operation.",
+    "observations": {
+      "cutting_speed_mm_min": 1200,
+      "spot_diameter_mm": 0.2,
+      "drawing_dimension_mm": 20.0,
+      "readings": [
+        {"power_W": 80, "actual_dimension_mm": 19.85},
+        {"power_W": 100, "actual_dimension_mm": 19.82},
+        {"power_W": 120, "actual_dimension_mm": 19.78}
+      ]
+    },
+    "code": "def calculate_energy_density(power_W, speed_mm_min, diameter_mm):\n    speed_mm_s = speed_mm_min / 60\n    return power_W / (speed_mm_s * diameter_mm) # J/mm^2\n\ndef calculate_error(actual, nominal):\n    return ((actual - nominal) / nominal) * 100\n\n# Given parameters\nv = 1200 # mm/min\nD = 0.2 # mm\nnominal_dim = 20.0 # mm\n\n# Observations\nreadings = [\n    {\"power_W\": 80, \"actual_dimension_mm\": 19.85},\n    {\"power_W\": 100, \"actual_dimension_mm\": 19.82},\n    {\"power_W\": 120, \"actual_dimension_mm\": 19.78}\n]\n\nprint('--- CO2 Laser Cutting Analysis ---')\nfor r in readings:\n    P = r['power_W']\n    actual_dim = r['actual_dimension_mm']\n    ED = calculate_energy_density(P, v, D)\n    kerf = (nominal_dim - actual_dim) # Total kerf width\n    error = calculate_error(actual_dim, nominal_dim)\n\n    print(f'Power: {P} W -> Energy Density: {ED:.2f} J/mm^2, Kerf: {kerf:.2f} mm, Error: {error:.2f}%')"
+  },
+  {
+    "context": "To perform various machining operations on a CNC milling machine and verify the accuracy of the finished part by comparing measured dimensions to the drawing specifications.",
+    "observations": {
+      "cutter_diameter_mm": 10,
+      "spindle_speed_rpm": 1500,
+      "drawing_dimensions": {
+        "slot_width_mm": 10.0,
+        "pocket_length_mm": 30.0,
+        "pocket_width_mm": 20.0
+      },
+      "measured_dimensions": {
+        "slot_width_mm": 10.08,
+        "pocket_length_mm": 30.15,
+        "pocket_width_mm": 20.12
+      }
+    },
+    "code": "import math\n\ndef calculate_cutting_speed(diameter_mm, speed_rpm):\n    return (math.pi * diameter_mm * speed_rpm) / 1000\n\ndef calculate_error(actual, nominal):\n    return ((actual - nominal) / nominal) * 100\n\n# Observations\nD_cutter = 10 # mm\nN = 1500 # rpm\ndrawing_dims = {\"slot_width_mm\": 10.0, \"pocket_length_mm\": 30.0, \"pocket_width_mm\": 20.0}\nmeasured_dims = {\"slot_width_mm\": 10.08, \"pocket_length_mm\": 30.15, \"pocket_width_mm\": 20.12}\n\n# Calculations\ncutting_speed_m_min = calculate_cutting_speed(D_cutter, N)\n\nprint(f'--- CNC Milling Analysis ---')\nprint(f'Cutting Speed: {cutting_speed_m_min:.2f} m/min')\n\nprint('\\n--- Dimensional Error Analysis ---')\nfor dim, nominal_val in drawing_dims.items():\n    actual_val = measured_dims[dim]\n    error = calculate_error(actual_val, nominal_val)\n    print(f'{dim}: Nominal={nominal_val} mm, Actual={actual_val} mm, Error={error:.2f}%')"
+  },
+  {
+    "context": "A comparative study of the surface roughness (Ra) achieved on a mild steel block through two different finishing processes: face milling and surface grinding.",
+    "observations": {
+      "milling_readings": [
+        {"rpm": 350, "Ra_um": 2.5},
+        {"rpm": 540, "Ra_um": 1.8}
+      ],
+      "grinding_reading": {
+        "Ra_um": 0.4
+      }
+    },
+    "code": "# Observation Data\nmilling_data = [\n    {\"rpm\": 350, \"Ra_um\": 2.5},\n    {\"rpm\": 540, \"Ra_um\": 1.8}\n]\ngrinding_Ra = 0.4\n\nprint('--- Surface Roughness Comparison ---')\nprint('Milling Results:')\nfor reading in milling_data:\n    print(f\"  At {reading['rpm']} RPM, Surface Roughness (Ra) = {reading['Ra_um']} um\")\n\nprint('\\nSurface Grinding Result:')\nprint(f'  Surface Roughness (Ra) = {grinding_Ra} um')\n\nprint(f'\\nConclusion: Surface grinding produced a significantly smoother surface (lower Ra) than face milling.')"
+  },
+  {
+    "context": "Experiment to study the Abrasive Water Jet Machining (AWJM) process by observing the effect of varying nozzle feed rate and abrasive flow rate on the cutting gap (kerf width).",
+    "observations": {
+      "water_pressure_bar": 3000,
+      "abrasive_type": "Garnet 80 mesh",
+      "workpiece": "6mm thick mild steel",
+      "readings": [
+        {"feed_rate_mm_min": 500, "abrasive_flow_gm_min": 600, "cutting_gap_mm": 1.2},
+        {"feed_rate_mm_min": 500, "abrasive_flow_gm_min": 700, "cutting_gap_mm": 1.3},
+        {"feed_rate_mm_min": 800, "abrasive_flow_gm_min": 600, "cutting_gap_mm": 1.0},
+        {"feed_rate_mm_min": 800, "abrasive_flow_gm_min": 700, "cutting_gap_mm": 1.1}
+      ]
+    },
+    "code": "# This experiment is primarily observational. The code will process and display the findings.\n\n# Observations\nreadings = [\n    {\"feed_rate_mm_min\": 500, \"abrasive_flow_gm_min\": 600, \"cutting_gap_mm\": 1.2},\n    {\"feed_rate_mm_min\": 500, \"abrasive_flow_gm_min\": 700, \"cutting_gap_mm\": 1.3},\n    {\"feed_rate_mm_min\": 800, \"abrasive_flow_gm_min\": 600, \"cutting_gap_mm\": 1.0},\n    {\"feed_rate_mm_min\": 800, \"abrasive_flow_gm_min\": 700, \"cutting_gap_mm\": 1.1}\n]\n\nprint('--- AWJM Process Parameter Study ---')\nfor r in readings:\n    feed = r['feed_rate_mm_min']\n    abrasive = r['abrasive_flow_gm_min']\n    gap = r['cutting_gap_mm']\n    print(f'Feed: {feed} mm/min, Abrasive Flow: {abrasive} gm/min -> Cutting Gap: {gap} mm')\n\nprint('\\nAnalysis:')\nprint(' - Increasing abrasive flow at a constant feed rate tends to increase the cutting gap (kerf width).')\nprint(' - Increasing feed rate at a constant abrasive flow tends to decrease the cutting gap.')"
+  },
+  {
+    "context": "To estimate the performance characteristics of a centrifugal pump. The experiment involves measuring head, flow rate, and power input at various pump speeds and valve settings to determine the pump's efficiency.",
+    "observations": {
+      "inlet_pipe_diameter_m": 0.030,
+      "outlet_pipe_diameter_m": 0.025,
+      "elevation_head_He_m": 0.075,
+      "water_density_rho_kg_m3": 1000,
+      "gravity_g_m_s2": 9.81,
+      "readings": [
+        {"pump_speed_rpm": 2000, "inlet_pressure_kPa": -10, "outlet_pressure_kPa": 150, "motor_torque_Nm": 0.8, "flow_rate_L_s": 1.2},
+        {"pump_speed_rpm": 2000, "inlet_pressure_kPa": -8, "outlet_pressure_kPa": 120, "motor_torque_Nm": 0.7, "flow_rate_L_s": 1.5},
+        {"pump_speed_rpm": 2500, "inlet_pressure_kPa": -15, "outlet_pressure_kPa": 220, "motor_torque_Nm": 1.0, "flow_rate_L_s": 1.8}
+      ]
+    },
+    "code": "import math\n\n# Constants\nD_in = 0.030\nD_out = 0.025\nA_in = math.pi * (D_in/2)**2\nA_out = math.pi * (D_out/2)**2\nHe = 0.075\nrho = 1000\ng = 9.81\n\n# Observations\nreadings = [\n    {\"pump_speed_rpm\": 2000, \"inlet_pressure_kPa\": -10, \"outlet_pressure_kPa\": 150, \"motor_torque_Nm\": 0.8, \"flow_rate_L_s\": 1.2},\n    {\"pump_speed_rpm\": 2000, \"inlet_pressure_kPa\": -8, \"outlet_pressure_kPa\": 120, \"motor_torque_Nm\": 0.7, \"flow_rate_L_s\": 1.5},\n    {\"pump_speed_rpm\": 2500, \"inlet_pressure_kPa\": -15, \"outlet_pressure_kPa\": 220, \"motor_torque_Nm\": 1.0, \"flow_rate_L_s\": 1.8}\n]\n\nprint('--- Centrifugal Pump Performance Analysis ---')\nfor i, r in enumerate(readings):\n    n = r['pump_speed_rpm']\n    P_in = r['inlet_pressure_kPa'] * 1000\n    P_out = r['outlet_pressure_kPa'] * 1000\n    t = r['motor_torque_Nm']\n    Q = r['flow_rate_L_s'] / 1000\n\n    # Calculations\n    V_in = Q / A_in\n    V_out = Q / A_out\n\n    Hs = (P_out - P_in) / (rho * g)\n    Hv = (V_out**2 - V_in**2) / (2 * g)\n    Ht = Hs + Hv + He\n\n    Hydraulic_Power_Ph = Ht * Q * rho * g\n    Mechanical_Power_Pm = (2 * math.pi * n * t) / 60\n    Efficiency = (Hydraulic_Power_Ph / Mechanical_Power_Pm) * 100 if Mechanical_Power_Pm > 0 else 0\n    \n    print(f'\\nReading {i+1} (Speed: {n} RPM, Flow: {Q*1000:.1f} L/s):')\n    print(f'Total Head (Ht): {Ht:.2f} m')\n    print(f'Hydraulic Power (Ph): {Hydraulic_Power_Ph:.2f} W')\n    print(f'Mechanical Power (Pm): {Mechanical_Power_Pm:.2f} W')\n    print(f'Pump Efficiency: {Efficiency:.2f}%')"
+  },
+  {
+    "context": "To understand the fundamentals of CNC programming for turning and milling operations by writing and simulating simple part programs. This experiment focuses on the program structure and the use of G-codes and M-codes, not on the physical machining.",
+    "observations": {
+      "turning_program": "O0001 (TURNING EXAMPLE)\\nG21 G90 G99\\nT0101\\nG96 S120 M03\\nG00 X22 Z2\\nG71 U1 R0.5\\nG71 P10 Q20 U0.2 W0.1 F0.2\\nN10 G00 X10\\nN15 G01 Z-30\\nN20 G01 X20 Z-40\\nG70 P10 Q20\\nG00 X100 Z100\\nM30",
+      "milling_program": "O0002 (MILLING EXAMPLE)\\nG21 G90 G94\\nT01 M06\\nG54 G00 X-10 Y-10\\nG43 H01 Z5 M03 S1500\\nG01 Z-5 F100\\nG41 D01 X0 Y0 F200\\nG01 Y50\\nG01 X50\\nG01 Y0\\nG01 X0\\nG00 Z5 M09\\nG40 G49\\nG00 X-10 Y-10 M05\\nM30"
+    },
+    "code": "turning_code = \"O0001 (TURNING EXAMPLE)\\nG21 G90 G99\\nT0101\\nG96 S120 M03\\nG00 X22 Z2\\nG71 U1 R0.5\\nG71 P10 Q20 U0.2 W0.1 F0.2\\nN10 G00 X10\\nN15 G01 Z-30\\nN20 G01 X20 Z-40\\nG70 P10 Q20\\nG00 X100 Z100\\nM30\"\n\nmilling_code = \"O0002 (MILLING EXAMPLE)\\nG21 G90 G94\\nT01 M06\\nG54 G00 X-10 Y-10\\nG43 H01 Z5 M03 S1500\\nG01 Z-5 F100\\nG41 D01 X0 Y0 F200\\nG01 Y50\\nG01 X50\\nG01 Y0\\nG01 X0\\nG00 Z5 M09\\nG40 G49\\nG00 X-10 Y-10 M05\\nM30\"\n\nprint('--- CNC Turning Program ---')\nprint(turning_code)\n\nprint('\\n--- CNC Milling Program ---')\nprint(milling_code)\n\nprint('\\nNote: The code block for this experiment contains the CNC programs themselves, as the task is program creation.')"
+  }
+]
