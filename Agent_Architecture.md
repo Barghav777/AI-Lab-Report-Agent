@@ -5,24 +5,22 @@
 ## Overview
 The AI Lab Report Agent automates the generation of engineering and science lab reports. It ingests a lab manual (PDF/DOCX) and a set of experimental observations (e.g., JSON) and outputs a structured, human-readable report—dramatically reducing documentation time and effort.
 
-
 ## High-Level Architecture
 
 ```mermaid
 flowchart LR
-    U[User] --> UI[Web UI<br/>(Flask, HTML/CSS/JS)]
-    UI --> B[Flask Backend (Python)]
-    B --> RAG[RAG Contextualizer<br/>(LangChain + FAISS + all-MiniLM-L6-v2)]
-    B --> C[Coder Agent<br/>(Phi-3-mini-4k-instruct, HF Inference API)]
+    U[User] --> UI["Web UI\n(Flask, HTML/CSS/JS)"]
+    UI --> B["Flask Backend (Python)"]
+    B --> RAG["RAG Contextualizer\n(LangChain + FAISS + all-MiniLM-L6-v2)"]
+    B --> C["Coder Agent\n(Phi-3-mini-4k-instruct, HF Inference API)"]
     RAG --> C
-    C --> EXE[Secure Code Execution]
-    EXE --> RES[Calculated Results]
-    B --> W[Report Writer Agent<br/>(Llama 3 70B via Groq)]
+    C --> EXE["Secure Code Execution"]
+    EXE --> RES["Calculated Results"]
+    B --> W["Report Writer Agent\n(Llama 3 70B via Groq)"]
     RAG --> W
     RES --> W
-    W --> OUT[Final Report to Browser<br/>(display / copy / download)]
+    W --> OUT["Final Report to Browser\n(display / copy / download)"]
 ```
-  
 
 ## System Architecture & Interaction Flow
 1. **User Input** — The user uploads a lab manual (PDF/DOCX) and provides experimental observations (JSON) via a web UI.  
@@ -31,7 +29,6 @@ flowchart LR
 4. **Code Execution** — The script executes in a secure sandbox; its outputs (calculated results) are captured.  
 5. **Report Synthesis** — A **Report Writer Agent** fuses the RAG context, observations, and computed results into a cohesive, formal lab report.  
 6. **Output** — The final report is returned to the browser for viewing, copying, or downloading.  
-
 
 ## Core Components
 
