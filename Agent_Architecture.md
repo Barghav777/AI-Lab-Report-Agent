@@ -16,7 +16,7 @@ flowchart LR
     RAG --> C
     C --> EXE["Secure Code Execution"]
     EXE --> RES["Calculated Results"]
-    B --> W["Report Writer Agent\n(Llama 3 70B via Groq)"]
+    B --> W["Report Writer Agent\n(llama-3.3-70b-versatile via Groq)"]
     RAG --> W
     RES --> W
     W --> OUT["Final Report to Browser\n(display / copy / download)"]
@@ -58,5 +58,5 @@ flowchart LR
 
 ### 5) Report Writer Agent
 - **Purpose:** Synthesize RAG context + observations + computed results into a polished, formal lab report.  
-- **Model:** **Llama 3 70B (8192-context)** via the **Groq API**.  
+- **Model:** **llama-3.3-70b-versatile** via the **Groq API**.  
 - **Why this setup:** 70B offers strong coherence and style; Groq delivers very low latency for an interactive UX.  
