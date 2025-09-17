@@ -9,9 +9,9 @@ The AI Lab Report Agent automates the generation of engineering and science lab 
 
 ```mermaid
 flowchart LR
-    U[User] --> UI["Web UI\n(Flask, HTML/CSS/JS)"]
+    U[User] --> UI["Web UI(Flask, HTML/CSS/JS)"]
     UI --> B["Flask Backend (Python)"]
-    B --> RAG["RAG Contextualizer\n(LangChain + FAISS + all-MiniLM-L6-v2)"]
+    B --> RAG["RAG Contextualizer(LangChain + FAISS + all-MiniLM-L6-v2)"]
     B --> C["Coder Agent\n(Phi-3-mini-4k-instruct, HF Inference API)"]
     RAG --> C
     C --> EXE["Secure Code Execution"]
